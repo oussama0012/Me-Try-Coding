@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-9779341625505620">
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="Instant IP address lookup – check any IP for location, ISP, and more. Fast, free, and accurate results with no signup required.">
+    <meta name="keywords" content="IP address lookup, IP locator, find IP address, IP information, IP geolocation, free IP tool">
+    <meta name="author" content="Oussama Achouri">
+    <meta name="robots" content="index, follow">
+
+    <title>IP Address Lookup</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="IP Address Lookup – Find Your IP & Location Instantly">
+    <meta property="og:description" content="Discover your IP address, location, ISP, and more with our free and fast IP Address Lookup tool. No sign-up required.">
+    <meta property="og:image" content="https://ipaddresslookup.space/IP%20Address%20Lookup.png">
+    <meta property="og:url" content="https://ipaddresslookup.space/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IP Address Lookup – Find Your IP & Location Instantly">
+    <meta name="twitter:description" content="Use our IP lookup tool to get details like your public IP, location, and internet provider in seconds. 100% free.">
+    <meta name="twitter:image" content="https://ipaddresslookup.space/IP%20Address%20Lookup.png">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://ipaddresslookup.space">
+    <link rel="icon" type="image/png" href="https://ipaddresslookup.space/favicon-16x16.png">
+
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "IP Address Lookup",
+        "url": "https://ipaddresslookup.space/",
+        "image": "https://ipaddresslookup.space/IP%20Address%20Lookup.png",
+        "description": "A fast and free IP Address Lookup tool that displays your public IP address, geolocation, ISP, and more instantly.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "author": {
+            "@type": "Person",
+            "name": "Oussama Achouri"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IP Address Lookup – Find Location, ISP, and More</h1>
+            <p>Quickly look up any IP address. Get location, ISP, device type, and more with our free IP address lookup tool. No signup needed</p>
+        </header>
+        
+        <main>
+            <div class="lookup-section">
+                <button id="myIpBtn" class="my-ip-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Use My IP
+                </button>
+                <input type="text" id="ipInput" placeholder="Enter IP Address (e.g. 8.8.8.8)">
+                <button id="lookupBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Lookup
+                </button>
+            </div>
+
+            <div id="resultSection" class="result-section">
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3>Location</h3>
+                        <p id="locationInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Network</h3>
+                        <p id="networkInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>ISP</h3>
+                        <p id="ispInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>IP Type</h3>
+                        <p id="typeInfo">-</p>
+                    </div>
+                </div>
+                <div id="mapContainer" class="map-container"></div>
+            </div>
+
+            <section class="benefits-section">
+                <div class="container">
+                    <h2 class="main-section-title">IP Address Lookup Tool – Fast, Free, No Signup</h2>
+                    <p>Instant IP address lookup – check any IP for location, ISP, and more. Fast, free, and accurate results with no signup required.</p>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M12 12l3 3"></path>
+                                </svg>
+                            </div>
+                            <h3>Enhanced Security</h3>
+                            <p>Quickly identify potential security risks and suspicious IP addresses.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <h3>Comprehensive Details</h3>
+                            <p>Access detailed geolocation, network, and ISP information instantly.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>Privacy Protection</h3>
+                            <p>Understand and manage your online privacy and digital footprint.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M21 8a2 2 0 0 0-2-2h-2v4h2a2 2 0 0 0 2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3>Network Intelligence</h3>
+                            <p>Gain insights into network infrastructure and connection details.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <circle cx="12" cy="8" r="3"></circle>
+                                </svg>
+                            </div>
+                            <h3>Geolocation Accuracy</h3>
+                            <p>Pinpoint precise geographic location with interactive map view.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <h3>User-Friendly Interface</h3>
+                            <p>Simple, intuitive design for effortless IP address exploration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-section">
+                <div class="container">
+                    <div class="article-content">
+                        <h2 class="article-title">IP Address Lookup: Your Digital Detective for Internet Intelligence</h2>
+                        <div class="article-text" w-tid="189">
+                            <p w-tid="191">Ever wondered where that weird IP is coming from? Is it your friend from Paris... or a bot from who-knows-where?</p>
+
+                            <p>With our IP Address Lookup tool (aka your friendly IP tracker), you’ll finally get some answers. It’s the IP search tool you didn’t know you needed — but will definitely overuse. Paste an IP and trace it instantly.
+
+</p>
+
+                            <p>It's fast. It's free. It works. Let's go.</p>
+
+                            <h3>Wait, What's an IP Address Again?</h3>
+                            <p>Think of your IP like your home address… but for the internet. It tells websites where to send all that juicy stuff — cat videos, memes, emails from your boss, etc.</p>
+
+                            <p>Two kinds exist:</p>
+                            <ul>
+                                <li>IPv4 – the classic (looks like 123.456.7.89)</li>
+                                <li>IPv6 – the longer, fancier one (looks like it came from the future)</li>
+                            </ul>
+                            <p>Every phone, laptop, or smart toaster has an IP. Even your grandma's tablet.</p>
+
+                            <h3>What Does This Magical Lookup Tool Do?</h3>
+                            <p>You paste an IP. We serve up the IP geolocation info — the city, region, country, and more. It’s like a public IP lookup but fun. Think of it as a slightly nosy location finder.
+
+:</p>
+                            <ul>
+                                <li>🧭 City & country (yes, the general area — we don't do spy-level stuff)</li>
+                                <li>🕓 Timezone (because some IPs really need to sleep)</li>
+                                <li>🏢 ISP info (who's behind the connection)</li>
+                                <li>🌍 Latitude/Longitude (so close, but not creepy-close)</li>
+                                <li>🖥️ Device type or network name (if available)</li>
+                            </ul>
+                            <p>Sorry — no home addresses, passwords, or phone numbers. That's illegal, and also super uncool.</p>
+
+                            <h3>Why Would You Use This?</h3>
+                            <ol>
+                                <li><strong>You're stalking... your own IP</strong><br>
+                                You’re stalking... your own IP. Wondering what is my IP or want to find my IP address? Our tool shows it the moment the page loads. Creepy? Maybe. Useful? Always.
+
+.</li>
+                                <li><strong>You caught a weird IP in your logs</strong><br>
+                                Who's visiting your site from Siberia at 3am? It could be a bot... or an insomniac from the other side of the planet. Paste it in and find out.</li>
+                                <li><strong>You received a fishy email</strong><br>
+                                Sometimes shady emails come with an IP trail. Use it to sniff out impostors. You don't need FBI clearance — just this tool.</li>
+                                <li><strong>Your Wi-Fi is acting sus</strong><br>
+                                See a mystery device on your network? Lookup the IP. Maybe it's your smart fridge… or your neighbor borrowing Wi-Fi again.</li>
+                            </ol>
+
+                            <h3>Is the Info Always Accurate?</h3>
+                            <p>Let's be real — the tool is smart, but it's not psychic.</p>
+                            <ul>
+                                <li>The location is close, but not GPS-perfect.</li>
+                                <li>Some IPs change often (hi, mobile users).</li>
+                                <li>VPNs and proxies can mask real locations.</li>
+                            </ul>
+                            <p>So… it's accurate-ish. Like when someone says, "I'm five minutes away."</p>
+
+                            <h3>What Makes Our IP Lookup Better?</h3>
+                            <ul>
+                                <li>✅ No ads shouting at you</li>
+                                <li>✅ Works on desktop, tablet, phone, maybe even fridge</li>
+                                <li>✅ Loads faster than your coffee machine</li>
+                                <li>✅ No login, no limits, no drama</li>
+                                <li>✅ Works with IPv4 and IPv6</li>
+                                <li>✅ Completely free (because who wants to pay for basic info?)</li>
+                            </ul>
+                            <p> It’s not just fast and free. It’s a smart IP locator for both IPv4 and IPv6 address lookup — no sign-up, no BS, no ads screaming in your face.</p>
+
+                            <h3>Should You Worry About Your IP?</h3>
+                            <p>Not unless you're doing shady stuff. But yes, your IP shows where you are roughly. Not your house, but your town or city. If you want more privacy, use a VPN. It hides your real IP and gives you a new one — like a fake mustache for the internet.</p>
+                            <h3>About Our IP Address Lookup tool</h3>
+                            <p>Our IP Address Lookup tool works as an IP tracker, geolocation finder, and public IP search system. Whether you want to trace an IP address, look up an IPv4 or IPv6, or simply check your own location online — this tool gets the job done.
+
+</p>
+                            <h3>Bonus: Tips for Staying Safe Online</h3>
+                            <ul>
+                                <li>Don't click sketchy links</li>
+                                <li>Update your devices (yes, even that old Android)</li>
+                                <li>Use a VPN if you're paranoid (or just stylish)</li>
+                                <li>Avoid using "123456" as your password</li>
+                                <li>Check your IP with our tool anytime, just for fun</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h3>FAQ – IP Address Lookup (The Silly and Serious Stuff)</h3>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <h4>Q: Is this thing really free?</h4>
+                                <p>Yep. No strings. No trials. Just lookup joy.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I find someone's house with this?</h4>
+                                <p>Nope. This isn't CSI. We don't do street-level stuff.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Will it work on my phone?</h4>
+                                <p>Of course. We're not in 2005 anymore.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Do you track me when I use it?</h4>
+                                <p>Nope. We don't care what IP you're stalking.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I use it 100 times a day?</h4>
+                                <p>Go wild. We don't limit lookups.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: What if the location is wrong?</h4>
+                                <p>Blame the internet. Or the ISP. Or your cat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo"><a href="https://ipaddresslookup.space/">IP Address Lookup</a>
+</div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="about-us.html">About</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-copyright"> All rights reserved to IP Address Lookup.</div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
