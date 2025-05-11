@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools - Me Coding</title>
+
+    <!-- Meta Tags for SEO and Social Media -->
+    <meta name="description" content="Browse our collection of free online tools and web-based utilities to help you with everyday tasks. No login required.">
+    <meta name="keywords" content="online tools, free tools, web tools, utilities, online utilities">
+    <meta name="author" content="Oussama Achouri">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Tools - Me Coding">
+    <meta property="og:description" content="Browse our collection of free and simple web-based utilities for everyday tasks.">
+    <meta property="og:image" content="https://onlinenotepad.space/ONLINE.png">
+    <meta property="og:url" content="https://onlinenotepad.space/tools.html">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tools - Me Coding">
+    <meta name="twitter:description" content="Browse our collection of free online tools for everyday tasks. No login required.">
+    <meta name="twitter:image" content="https://onlinenotepad.space/ONLINE.png">
+
+    <!-- Link to Favicon -->
+    <link rel="canonical" href="https://onlinenotepad.space/tools">
+    <link rel="icon" type="image/png" href="https://onlinenotepad.space/favicon-16x16.png">
+    
+    <!-- Link to Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Me Coding</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="tools.html" class="active">Tools</a></li>
+                    <li><a href="about-me.html">About</a></li>
+                    <li><a href="privacy-policy.html">Privacy</a></li>
+                    <li><a href="contact-us.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="tools-header">
+        <div class="container">
+            <h1>All Tools</h1>
+            <p>Browse our collection of free online tools designed to make your work easier and more efficient.</p>
+            <div class="search-bar">
+                <input type="text" id="tool-search" placeholder="Search for a tool...">
+                <button><i class="ri-search-line"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All Tools</button>
+                <button class="category-tab" data-category="networking">Networking</button>
+                <button class="category-tab" data-category="text">Text Tools</button>
+                <button class="category-tab" data-category="conversion">Converters</button>
+                <button class="category-tab" data-category="calculators">Calculators</button>
+                <button class="category-tab" data-category="generators">Generators</button>
+                <button class="category-tab" data-category="utilities">Utilities</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-section">
+        <div class="container">
+            <div class="tools-grid" id="tools-container">
+                <!-- Networking Tools -->
+                <a href="ip-lookup.html" class="tool-card" data-category="networking">
+                    <div class="tool-icon"><i class="ri-global-line"></i></div>
+                    <h3>IP Address Lookup</h3>
+                    <p>Get detailed information about any IP address location and network details.</p>
+                    <span class="tool-category">Networking</span>
+                </a>
+                
+                <a href="dns-lookup.html" class="tool-card" data-category="networking">
+                    <div class="tool-icon"><i class="ri-server-line"></i></div>
+                    <h3>DNS Lookup</h3>
+                    <p>Retrieve DNS records for any domain name quickly and easily.</p>
+                    <span class="tool-category">Networking</span>
+                </a>
+                
+                <a href="whois-lookup.html" class="tool-card" data-category="networking">
+                    <div class="tool-icon"><i class="ri-search-eye-line"></i></div>
+                    <h3>WHOIS Lookup</h3>
+                    <p>Find domain registration information and ownership details.</p>
+                    <span class="tool-category">Networking</span>
+                </a>
+                
+                <!-- Text Tools -->
+                <a href="notepad.html" class="tool-card" data-category="text">
+                    <div class="tool-icon"><i class="ri-file-text-line"></i></div>
+                    <h3>Online Notepad</h3>
+                    <p>Create, edit and save notes with our feature-rich text editor.</p>
+                    <span class="tool-category">Text Tools</span>
+                </a>
+                
+                <a href="character-counter.html" class="tool-card" data-category="text">
+                    <div class="tool-icon"><i class="ri-text"></i></div>
+                    <h3>Character Counter</h3>
+                    <p>Count characters, words, sentences and paragraphs in your text.</p>
+                    <span class="tool-category">Text Tools</span>
+                </a>
+                
+                <a href="text-case-converter.html" class="tool-card" data-category="text">
+                    <div class="tool-icon"><i class="ri-a-b"></i></div>
+                    <h3>Text Case Converter</h3>
+                    <p>Convert text between lowercase, UPPERCASE, Title Case and more.</p>
+                    <span class="tool-category">Text Tools</span>
+                </a>
+                
+                <!-- Converters -->
+                <a href="unit-converter.html" class="tool-card" data-category="conversion">
+                    <div class="tool-icon"><i class="ri-exchange-line"></i></div>
+                    <h3>Unit Converter</h3>
+                    <p>Convert between different units of measurement easily.</p>
+                    <span class="tool-category">Converters</span>
+                </a>
+                
+                <a href="json-yaml-converter.html" class="tool-card" data-category="conversion">
+                    <div class="tool-icon"><i class="ri-code-line"></i></div>
+                    <h3>JSON/YAML Converter</h3>
+                    <p>Convert between JSON and YAML formats with syntax validation.</p>
+                    <span class="tool-category">Converters</span>
+                </a>
+                
+                <a href="color-converter.html" class="tool-card" data-category="conversion">
+                    <div class="tool-icon"><i class="ri-palette-line"></i></div>
+                    <h3>Color Converter</h3>
+                    <p>Convert between RGB, HEX, HSL, and CMYK color formats.</p>
+                    <span class="tool-category">Converters</span>
+                </a>
+                
+                <!-- Calculators -->
+                <a href="calculator.html" class="tool-card" data-category="calculators">
+                    <div class="tool-icon"><i class="ri-calculator-line"></i></div>
+                    <h3>Calculator</h3>
+                    <p>Perform basic and scientific calculations quickly.</p>
+                    <span class="tool-category">Calculators</span>
+                </a>
+                
+                <a href="percentage-calculator.html" class="tool-card" data-category="calculators">
+                    <div class="tool-icon"><i class="ri-percent-line"></i></div>
+                    <h3>Percentage Calculator</h3>
+                    <p>Calculate percentages, increases, decreases and more.</p>
+                    <span class="tool-category">Calculators</span>
+                </a>
+                
+                <a href="date-calculator.html" class="tool-card" data-category="calculators">
+                    <div class="tool-icon"><i class="ri-calendar-line"></i></div>
+                    <h3>Date Calculator</h3>
+                    <p>Calculate time between dates or add/subtract days from a date.</p>
+                    <span class="tool-category">Calculators</span>
+                </a>
+                
+                <!-- Generators -->
+                <a href="password-generator.html" class="tool-card" data-category="generators">
+                    <div class="tool-icon"><i class="ri-lock-password-line"></i></div>
+                    <h3>Password Generator</h3>
+                    <p>Generate strong, secure passwords for your accounts.</p>
+                    <span class="tool-category">Generators</span>
+                </a>
+                
+                <a href="qr-code-generator.html" class="tool-card" data-category="generators">
+                    <div class="tool-icon"><i class="ri-qr-code-line"></i></div>
+                    <h3>QR Code Generator</h3>
+                    <p>Create custom QR codes for URLs, text, and contact information.</p>
+                    <span class="tool-category">Generators</span>
+                </a>
+                
+                <a href="lorem-ipsum-generator.html" class="tool-card" data-category="generators">
+                    <div class="tool-icon"><i class="ri-file-list-3-line"></i></div>
+                    <h3>Lorem Ipsum Generator</h3>
+                    <p>Generate placeholder text for design mockups and layouts.</p>
+                    <span class="tool-category">Generators</span>
+                </a>
+                
+                <!-- Utilities -->
+                <a href="image-compressor.html" class="tool-card" data-category="utilities">
+                    <div class="tool-icon"><i class="ri-image-line"></i></div>
+                    <h3>Image Compressor</h3>
+                    <p>Compress and resize images without losing quality.</p>
+                    <span class="tool-category">Utilities</span>
+                </a>
+                
+                <a href="file-merger.html" class="tool-card" data-category="utilities">
+                    <div class="tool-icon"><i class="ri-file-copy-line"></i></div>
+                    <h3>PDF Merger</h3>
+                    <p>Combine multiple PDF files into a single document.</p>
+                    <span class="tool-category">Utilities</span>
+                </a>
+                
+                <a href="url-shortener.html" class="tool-card" data-category="utilities">
+                    <div class="tool-icon"><i class="ri-link"></i></div>
+                    <h3>URL Shortener</h3>
+                    <p>Create short, easy-to-share links from long URLs.</p>
+                    <span class="tool-category">Utilities</span>
+                </a>
+            </div>
+            
+            <div id="no-results" class="no-results" style="display: none;">
+                <i class="ri-search-2-line"></i>
+                <h3>No tools found</h3>
+                <p>Try searching with different keywords or browse all tools.</p>
+                <button id="reset-search" class="reset-button">Show All Tools</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Me Coding</h2>
+                    <p>Free web-based utilities for everyday tasks</p>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="about-me.html">About</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="contact-us.html">Contact Us</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Me Coding. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="tools.js"></script>
+</body>
+</html>
