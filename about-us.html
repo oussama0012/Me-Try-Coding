@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .about-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 800px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .about-container:hover {
+            transform: scale(1.02);
+        }
+        .team-members {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .member {
+            text-align: center;
+            max-width: 200px;
+        }
+        .member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .member img:hover {
+            transform: rotate(360deg);
+        }
+        .member h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .member p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* New Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 90%;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.7);
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .modal-message {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container" id="about-section">
+        <h1>About Our Team</h1>
+        <p>We are a passionate group of professionals dedicated to creating innovative solutions.</p>
+        
+        <div class="team-members" id="team-members">
+            <!-- Team members will be dynamically added here -->
+        </div>
+
+        <a href="#" class="cta-button" id="contact-btn">Contact Us</a>
+    </div>
+
+    <!-- Modal for Contact -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-icon">✉️</div>
+            <h2>Contact Us</h2>
+            <p class="modal-message">Thanks for your interest! Email us at proforex2017@gmail.com</p>
+            <button class="modal-button" id="modalOkButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        const teamMembers = [
+            {
+                name: "Jane Doe",
+                role: "Founder & CEO",
+                image: "https://randomuser.me/api/portraits/women/1.jpg",
+                bio: "Visionary leader with 15 years of tech experience."
+            },
+            {
+                name: "John Smith",
+                role: "Lead Developer",
+                image: "https://randomuser.me/api/portraits/men/1.jpg", 
+                bio: "Expert in full-stack development and innovation."
+            },
+            {
+                name: "Emily Chen",
+                role: "Design Director",
+                image: "https://randomuser.me/api/portraits/women/2.jpg",
+                bio: "Creative design strategist with global experience."
+            }
+        ];
+
+        function renderTeamMembers() {
+            const teamContainer = document.getElementById('team-members');
+            teamMembers.forEach(member => {
+                const memberDiv = document.createElement('div');
+                memberDiv.classList.add('member');
+                memberDiv.innerHTML = `
+                    <img src="${member.image}" alt="${member.name}">
+                    <h3>${member.name}</h3>
+                    <p>${member.role}</p>
+                    <p>${member.bio}</p>
+                `;
+                teamContainer.appendChild(memberDiv);
+            });
+        }
+
+        // Updated contact button event listener
+        document.getElementById('contact-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const modal = document.getElementById('contactModal');
+            modal.classList.add('show');
+        });
+
+        // Close modal when OK button is clicked
+        document.getElementById('modalOkButton').addEventListener('click', function() {
+            const modal = document.getElementById('contactModal');
+            modal.classList.remove('show');
+        });
+
+        // Close modal when close button is clicked
+        document.getElementById('modalClose').addEventListener('click', function() {
+            const modal = document.getElementById('contactModal');
+            modal.classList.remove('show');
+        });
+
+        // Close modal if clicking outside the modal content
+        document.getElementById('contactModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.classList.remove('show');
+            }
+        });
+
+        // Initialize page
+        renderTeamMembers();
+    </script>
+</body>
+</html>
