@@ -1,5 +1,3 @@
-// ... existing code ...
-
 document.addEventListener('DOMContentLoaded', function() {
     // Search functionality
     const searchInput = document.querySelector('.search-bar input');
@@ -49,24 +47,4 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
         document.body.classList.add('dark-theme');
     }
-});
-
-class NotepadApp {
-    constructor() {
-        // Initialize the notepad application
-        this.setupEditor();
-        this.setupEventListeners();
-        this.loadSavedNotes();
-        this.setupWordCounter(); 
-        this.setupSavedFilesToggle();
-        this.loadNotepadContent(); 
-        this.addBlockquoteExitBehavior();
-    }
-    
-    // ... rest of the NotepadApp class ...
-}
-
-// Initialize the app when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    window.notepadApp = new NotepadApp();
 });
