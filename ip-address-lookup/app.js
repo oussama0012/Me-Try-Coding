@@ -11,10 +11,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let map = null;
 
+    // Function to show toast notification
+    function showToast(message) {
+        // Remove any existing toast
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Create new toast
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            ${message}
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Show toast
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10);
+        
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+
     // Function to fetch and display IP information
     async function fetchIPInfo(ipAddress) {
         if (!validateIP(ipAddress)) {
-            alert('Please enter a valid IP address');
+            showToast('Please enter a valid IP address');
             return;
         }
 
@@ -78,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('IP Lookup Error:', error);
-            alert('Unable to fetch IP details. Please try again.');
+            showToast('Unable to fetch IP details. Please try again.');
         }
     }
 
@@ -99,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchIPInfo(myIP);
         } catch (error) {
             console.error('Failed to fetch IP:', error);
-            alert('Unable to retrieve your IP address. Please try again.');
+            showToast('Unable to retrieve your IP address. Please try again.');
         }
     });
 
