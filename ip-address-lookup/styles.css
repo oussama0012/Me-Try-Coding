@@ -383,7 +383,6 @@ header p {
     font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-subtle);
-    justify-content: center;
 }
 
 .similar-tool-card:hover {
@@ -393,7 +392,20 @@ header p {
 }
 
 .tool-icon {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-color-dark));
+    color: white;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.similar-tool-card:hover .tool-icon {
+    transform: scale(1.1);
 }
 
 .similar-tool-card span {
