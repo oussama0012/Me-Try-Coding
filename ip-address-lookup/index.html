@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-adsense-account" content="ca-pub-9779341625505620">
+    <meta name="google-adsense-account" content="ca-pub-9779341625505620">
     <!-- Basic Meta Tags -->
     <meta name="description" content="Instant IP address lookup – check any IP for location, ISP, and more. Fast, free, and accurate results with no signup required.">
     <meta name="keywords" content="IP address lookup, IP locator, find IP address, IP information, IP geolocation, free IP tool">
@@ -30,7 +30,7 @@
     <link rel="icon" type="image/png" href="https://ipaddresslookup.space/favicon-16x16.png">
 
     <!-- Styles and Fonts -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -59,8 +59,18 @@
 </head>
 <body>
     <div class="container">
+        <div class="view-all-tools">
+            <a href="#" class="tools-btn" id="viewAllToolsBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                View All Tools
+            </a>
+        </div>
         <header>
-            <h1>IP Address Lookup – Find Location, ISP, and More</h1>
+            <h1 class="main-section-title">IP Address Lookup – Find Location, ISP, and More</h1>
             <p>Quickly look up any IP address. Get location, ISP, device type, and more with our free IP address lookup tool. No signup needed</p>
         </header>
         
@@ -287,7 +297,7 @@
                                 <h4>Q: Can I use it 100 times a day?</h4>
                                 <p>Go wild. We don't limit lookups.</p>
                             </div>
-                            <div class="faq-item">
+                            <div class="faq-item" w-tid="395">
                                 <h4>Q: What if the location is wrong?</h4>
                                 <p>Blame the internet. Or the ISP. Or your cat.</p>
                             </div>
@@ -296,24 +306,88 @@
                 </div>
             </section>
 
+            <div class="similar-tools-section">
+                <h3>Similar Tools You Might Like</h3>
+                <div class="similar-tools-grid">
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <span>Password Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <span>URL Shortener</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <span>QR Code Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <span>JSON Formatter</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <span>HTML to Markdown</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span>Random Name Generator</span>
+                    </a>
+                </div>
+            </div>
         </main>
         
         <footer class="footer">
             <div class="footer-container">
-                <div class="footer-logo"><a href="https://ipaddresslookup.space/">IP Address Lookup</a>
-</div>
+                <div class="footer-logo"><a href="#">IP Address Lookup</a>
+                </div>
                 <nav class="footer-nav">
                     <ul>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="about-us.html">About</a></li>
-                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </nav>
-                <div class="footer-copyright"> All rights reserved to IP Address Lookup.</div>
+                <div class="footer-copyright"> All rights reserved to <a href="#">mecoding</a>.</div>
             </div>
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
