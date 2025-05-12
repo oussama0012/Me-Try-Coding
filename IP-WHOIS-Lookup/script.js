@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let map = null;
 
+    // Function to fetch and display IP WHOIS information
     async function fetchIPInfo(ipAddress) {
         if (!validateIP(ipAddress)) {
             alert('Please enter a valid IP address');
@@ -13,206 +14,215 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
+            // Show loading state
             whoisResults.textContent = 'Loading WHOIS data...';
             
-            const whoisResponse = await axios.get(`https://whois.ws/api/v1/${ipAddress}?key=free`, {
-                headers: { 'Accept': 'application/json' }
-            });
+            // Get raw WHOIS data using the RDAP API
+            const response = await axios.get(`https://rdap.org/ip/${ipAddress}`);
             
-            if (whoisResponse.data && whoisResponse.data.result) {
-                const data = whoisResponse.data.result;
+            // Get additional WHOIS data from another source for completeness
+            const ipWhoIsResponse = await axios.get(`https://ipwho.is/${ipAddress}`);
+            const ipWhoIsData = ipWhoIsResponse.data;
+            
+            // Format the WHOIS information in a similar format to WhatIsMyIP
+            let formattedWhois = `WhatIsMyIP.com Whois Lookup Report for: ${ipAddress}\n\n`;
+            
+            if (response.data) {
+                // Add RDAP data
+                formattedWhois += `% Information related to '${ipAddress}'\n\n`;
                 
-                let formattedWhois = `WhatIsMyIP.com Whois Lookup Report for: ${ipAddress}\n`;
-                
-                if (data.registry) {
-                    formattedWhois += `% This is the ${data.registry} Whois server.\n`;
-                    formattedWhois += `% The ${data.registry} whois database is subject to terms of use.\n\n`;
+                if (response.data.handle) {
+                    formattedWhois += `inetnum:        ${response.data.handle}\n`;
                 }
                 
-                formattedWhois += `% Note: this output has been filtered.\n`;
-                formattedWhois += `%       To receive output for a database update, use the "-B" flag.\n\n`;
-                
-                formattedWhois += `% Information related to '${data.network || ipAddress}'\n\n`;
-                
-                if (data.network) {
-                    formattedWhois += `inetnum:        ${data.network}\n`;
+                if (response.data.name) {
+                    formattedWhois += `netname:        ${response.data.name}\n`;
                 }
                 
-                if (data.netname) {
-                    formattedWhois += `netname:        ${data.netname}\n`;
+                // Add network information
+                if (response.data.cidr0_cidrs) {
+                    formattedWhois += `cidr:           ${response.data.cidr0_cidrs.join(', ')}\n`;
                 }
                 
-                if (data.organization) {
-                    formattedWhois += `organisation:   ${data.organization}\n`;
-                }
-                
-                if (data.orgname) {
-                    formattedWhois += `org-name:       ${data.orgname}\n`;
-                }
-                
-                if (data.country) {
-                    formattedWhois += `country:        ${data.country}\n`;
-                }
-                
-                if (data.city) {
-                    formattedWhois += `city:           ${data.city}\n`;
-                }
-                
-                if (data.address) {
-                    const addresses = Array.isArray(data.address) ? data.address : [data.address];
-                    addresses.forEach(addr => {
-                        formattedWhois += `address:        ${addr}\n`;
-                    });
-                }
-                
-                if (data.phones) {
-                    const phones = Array.isArray(data.phones) ? data.phones : [data.phones];
-                    phones.forEach(phone => {
-                        formattedWhois += `phone:          ${phone}\n`;
-                    });
-                }
-                
-                if (data.emails) {
-                    const emails = Array.isArray(data.emails) ? data.emails : [data.emails];
-                    emails.forEach(email => {
-                        formattedWhois += `email:          ${email}\n`;
-                    });
-                }
-                
-                if (data.created) {
-                    formattedWhois += `created:        ${data.created}\n`;
-                }
-                
-                if (data.updated) {
-                    formattedWhois += `last-modified:  ${data.updated}\n`;
-                }
-                
-                if (data.abuse_emails) {
-                    formattedWhois += `abuse-mailbox:  ${data.abuse_emails}\n`;
-                }
-                
-                formattedWhois += `\nsource:         ${data.registry || 'WHOIS'} # Filtered\n`;
-                
-                if (data.raw) {
-                    formattedWhois += `\n${data.raw}\n`;
-                }
-                
-                whoisResults.textContent = formattedWhois;
-                
-                if (data.latitude && data.longitude) {
-                    updateMap(data.latitude, data.longitude, ipAddress, data.country, data.city);
-                } else {
-                    try {
-                        const geoResponse = await axios.get(`https://ipapi.co/${ipAddress}/json/`);
-                        if (geoResponse.data && geoResponse.data.latitude && geoResponse.data.longitude) {
-                            updateMap(geoResponse.data.latitude, geoResponse.data.longitude, ipAddress, geoResponse.data.country_name, geoResponse.data.city);
-                        } else {
-                            document.getElementById('mapContainer').innerHTML = '<p>Location information not available</p>';
+                // Add entity information
+                if (response.data.entities && response.data.entities.length > 0) {
+                    formattedWhois += '\n';
+                    
+                    response.data.entities.forEach(entity => {
+                        if (entity.handle) {
+                            formattedWhois += `organisation:   ${entity.handle}\n`;
                         }
-                    } catch (err) {
-                        document.getElementById('mapContainer').innerHTML = '<p>Location information not available</p>';
+                        
+                        if (entity.vcardArray && entity.vcardArray[1]) {
+                            const vcardData = entity.vcardArray[1];
+                            
+                            for (let i = 0; i < vcardData.length; i++) {
+                                const item = vcardData[i];
+                                
+                                if (item[0] === 'fn') {
+                                    formattedWhois += `org-name:       ${item[3]}\n`;
+                                }
+                                
+                                if (item[0] === 'adr') {
+                                    formattedWhois += `address:        ${item[3].join(', ')}\n`;
+                                }
+                                
+                                if (item[0] === 'tel') {
+                                    formattedWhois += `phone:          tel:${item[3]}\n`;
+                                }
+                                
+                                if (item[0] === 'email') {
+                                    formattedWhois += `email:          ${item[3]}\n`;
+                                }
+                            }
+                        }
+                        
+                        if (entity.roles) {
+                            formattedWhois += `roles:          ${entity.roles.join(', ')}\n`;
+                        }
+                        
+                        formattedWhois += '\n';
+                    });
+                }
+                
+                // Add remarks and country info from ipwho.is
+                if (ipWhoIsData) {
+                    if (ipWhoIsData.country) {
+                        formattedWhois += `country:        ${ipWhoIsData.country}\n`;
+                    }
+                    
+                    if (ipWhoIsData.region) {
+                        formattedWhois += `region:         ${ipWhoIsData.region}\n`;
+                    }
+                    
+                    if (ipWhoIsData.city) {
+                        formattedWhois += `city:           ${ipWhoIsData.city}\n`;
+                    }
+                    
+                    if (ipWhoIsData.connection && ipWhoIsData.connection.isp) {
+                        formattedWhois += `isp:            ${ipWhoIsData.connection.isp}\n`;
+                    }
+                    
+                    if (ipWhoIsData.connection && ipWhoIsData.connection.org) {
+                        formattedWhois += `org:            ${ipWhoIsData.connection.org}\n`;
+                    }
+                    
+                    if (ipWhoIsData.connection && ipWhoIsData.connection.domain) {
+                        formattedWhois += `domain:         ${ipWhoIsData.connection.domain}\n`;
                     }
                 }
+                
+                // Add source information
+                formattedWhois += `source:         RDAP and ipwho.is # Filtered\n`;
             } else {
-                fallbackWhoisLookup(ipAddress);
+                formattedWhois += "No WHOIS data available for this IP address.";
             }
+            
+            // Update the WHOIS results
+            whoisResults.textContent = formattedWhois;
+            
+            // Initialize or update map if coordinates are available
+            const mapContainer = document.getElementById('mapContainer');
+            mapContainer.innerHTML = ''; // Clear previous map
+            
+            // Check if latitude and longitude are available
+            if (ipWhoIsData && ipWhoIsData.latitude && ipWhoIsData.longitude) {
+                const mapElement = document.createElement('div');
+                mapElement.style.width = '100%';
+                mapElement.style.height = '350px';
+                mapContainer.appendChild(mapElement);
+
+                // Initialize Leaflet map
+                map = L.map(mapElement).setView([ipWhoIsData.latitude, ipWhoIsData.longitude], 10);
+                
+                // Add tile layer (OpenStreetMap)
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: ' OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Add marker
+                L.marker([ipWhoIsData.latitude, ipWhoIsData.longitude])
+                    .addTo(map)
+                    .bindPopup(`IP: ${ipWhoIsData.ip}<br>Location: ${ipWhoIsData.city}, ${ipWhoIsData.country}`)
+                    .openPopup();
+            } else {
+                mapContainer.innerHTML = '<p>Location information not available</p>';
+            }
+
         } catch (error) {
             console.error('IP WHOIS Lookup Error:', error);
-            fallbackWhoisLookup(ipAddress);
+            
+            // Fallback to a simpler WHOIS API if the first one fails
+            try {
+                const fallbackResponse = await axios.get(`https://ipapi.co/${ipAddress}/json/`);
+                const fallbackData = fallbackResponse.data;
+                
+                let fallbackWhois = `WhatIsMyIP.com Whois Lookup Report for: ${ipAddress}\n\n`;
+                fallbackWhois += `% Information related to '${ipAddress}'\n\n`;
+                
+                fallbackWhois += `ip:             ${fallbackData.ip || 'N/A'}\n`;
+                fallbackWhois += `version:        IPv${fallbackData.version || '4'}\n`;
+                fallbackWhois += `city:           ${fallbackData.city || 'N/A'}\n`;
+                fallbackWhois += `region:         ${fallbackData.region || 'N/A'}\n`;
+                fallbackWhois += `country:        ${fallbackData.country_name || 'N/A'}\n`;
+                fallbackWhois += `org:            ${fallbackData.org || 'N/A'}\n`;
+                fallbackWhois += `asn:            ${fallbackData.asn || 'N/A'}\n`;
+                fallbackWhois += `postal:         ${fallbackData.postal || 'N/A'}\n`;
+                fallbackWhois += `timezone:       ${fallbackData.timezone || 'N/A'}\n`;
+                fallbackWhois += `latitude:       ${fallbackData.latitude || 'N/A'}\n`;
+                fallbackWhois += `longitude:      ${fallbackData.longitude || 'N/A'}\n`;
+                
+                fallbackWhois += `\nsource:         ipapi.co # Filtered\n`;
+                
+                // Update the WHOIS results
+                whoisResults.textContent = fallbackWhois;
+                
+                // Update map with fallback data
+                if (fallbackData.latitude && fallbackData.longitude) {
+                    const mapContainer = document.getElementById('mapContainer');
+                    mapContainer.innerHTML = ''; // Clear previous map
+                    const mapElement = document.createElement('div');
+                    mapElement.style.width = '100%';
+                    mapElement.style.height = '350px';
+                    mapContainer.appendChild(mapElement);
+
+                    // Initialize Leaflet map
+                    map = L.map(mapElement).setView([fallbackData.latitude, fallbackData.longitude], 10);
+                    
+                    // Add tile layer (OpenStreetMap)
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: ' OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    // Add marker
+                    L.marker([fallbackData.latitude, fallbackData.longitude])
+                        .addTo(map)
+                        .bindPopup(`IP: ${fallbackData.ip}<br>Location: ${fallbackData.city}, ${fallbackData.country_name}`)
+                        .openPopup();
+                } else {
+                    const mapContainer = document.getElementById('mapContainer');
+                    mapContainer.innerHTML = '<p>Location information not available</p>';
+                }
+            } catch (fallbackError) {
+                console.error('Fallback WHOIS Lookup Error:', fallbackError);
+                whoisResults.textContent = `Error fetching WHOIS data for IP: ${ipAddress}. Please try again.`;
+            }
         }
     }
 
-    async function fallbackWhoisLookup(ipAddress) {
-        try {
-            const response = await axios.get(`https://ipwhois.app/json/${ipAddress}`);
-            const data = response.data;
-            
-            let fallbackWhois = `WhatIsMyIP.com Whois Lookup Report for: ${ipAddress}\n\n`;
-            fallbackWhois += `% Information related to '${ipAddress}'\n\n`;
-            
-            if (data.ip) {
-                fallbackWhois += `ip:             ${data.ip}\n`;
-            }
-            
-            if (data.type) {
-                fallbackWhois += `version:        IPv${data.type === 'IPv4' ? '4' : '6'}\n`;
-            }
-            
-            if (data.org) {
-                fallbackWhois += `organisation:   ${data.org}\n`;
-            }
-            
-            if (data.isp) {
-                fallbackWhois += `isp:            ${data.isp}\n`;
-            }
-            
-            if (data.asn) {
-                fallbackWhois += `asn:            ${data.asn}\n`;
-            }
-            
-            if (data.country) {
-                fallbackWhois += `country:        ${data.country}\n`;
-            }
-            
-            if (data.region) {
-                fallbackWhois += `region:         ${data.region}\n`;
-            }
-            
-            if (data.city) {
-                fallbackWhois += `city:           ${data.city}\n`;
-            }
-            
-            if (data.timezone) {
-                fallbackWhois += `timezone:       ${data.timezone}\n`;
-            }
-            
-            fallbackWhois += `\nsource:         ipwhois.app # Filtered\n`;
-            
-            whoisResults.textContent = fallbackWhois;
-            
-            if (data.latitude && data.longitude) {
-                updateMap(data.latitude, data.longitude, ipAddress, data.country, data.city);
-            } else {
-                document.getElementById('mapContainer').innerHTML = '<p>Location information not available</p>';
-            }
-        } catch (fallbackError) {
-            console.error('Fallback WHOIS Lookup Error:', fallbackError);
-            whoisResults.textContent = `Error fetching WHOIS data for IP: ${ipAddress}. Please try again.`;
-            document.getElementById('mapContainer').innerHTML = '<p>Location information not available</p>';
-        }
-    }
-
-    function updateMap(lat, lon, ip, country, city) {
-        const mapContainer = document.getElementById('mapContainer');
-        mapContainer.innerHTML = ''; // Clear previous map
-        
-        const mapElement = document.createElement('div');
-        mapElement.style.width = '100%';
-        mapElement.style.height = '350px';
-        mapContainer.appendChild(mapElement);
-
-        map = L.map(mapElement).setView([lat, lon], 10);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: ' OpenStreetMap contributors'
-        }).addTo(map);
-
-        L.marker([lat, lon])
-            .addTo(map)
-            .bindPopup(`IP: ${ip}<br>Location: ${city || 'Unknown'}, ${country || 'Unknown'}`)
-            .openPopup();
-    }
-
+    // Lookup button event listener
     lookupBtn.addEventListener('click', () => {
         const ipAddress = ipInput.value.trim();
         fetchIPInfo(ipAddress);
     });
 
+    // My IP button event listener
     myIpBtn.addEventListener('click', async () => {
         try {
             const response = await axios.get('https://api.ipify.org?format=json');
             const myIP = response.data.ip;
             
+            // Set input value and trigger lookup
             ipInput.value = myIP;
             fetchIPInfo(myIP);
         } catch (error) {
@@ -221,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Also trigger on Enter key in the input field
     ipInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const ipAddress = ipInput.value.trim();
@@ -229,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function validateIP(ip) {
+        // More permissive IP validation to allow for both IPv4 and IPv6
         const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
         const ipv6Regex = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$|^(([0-9a-fA-F]{1,4}:){0,6}[0-9a-fA-F]{1,4})?::([0-9a-fA-F]{1,4}:){0,6}[0-9a-fA-F]{1,4}$/;
         return ipv4Regex.test(ip) || ipv6Regex.test(ip) || ip.includes(':');
