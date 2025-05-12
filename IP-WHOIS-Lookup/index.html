@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-9779341625505620">
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="Instant IP WHOIS lookup – check any IP for ownership, registration details, and more. Fast, free, and accurate results with no signup required.">
+    <meta name="keywords" content="IP WHOIS lookup, IP information, WHOIS data, IP registry details, free IP tool">
+    <meta name="author" content="Oussama Achouri">
+    <meta name="robots" content="index, follow">
+
+    <title>IP WHOIS Lookup</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="IP WHOIS Lookup – Find IP Owner, Registration & More">
+    <meta property="og:description" content="Discover detailed WHOIS information, registration details, ownership, and more with our free and fast IP WHOIS Lookup tool. No sign-up required.">
+    <meta property="og:image" content="https://ipaddresslookup.space/IP%20Address%20Lookup.png">
+    <meta property="og:url" content="https://ipaddresslookup.space/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IP WHOIS Lookup – Find IP Owner, Registration & More">
+    <meta name="twitter:description" content="Use our IP WHOIS lookup tool to get details like ownership, registry information, and registration dates in seconds. 100% free.">
+    <meta name="twitter:image" content="https://ipaddresslookup.space/IP%20Address%20Lookup.png">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://ipaddresslookup.space">
+    <link rel="icon" type="image/png" href="https://ipaddresslookup.space/favicon-16x16.png">
+
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "IP WHOIS Lookup",
+        "url": "https://ipaddresslookup.space/",
+        "image": "https://ipaddresslookup.space/IP%20Address%20Lookup.png",
+        "description": "A fast and free IP WHOIS Lookup tool that displays ownership, registration details, and network information instantly.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "author": {
+            "@type": "Person",
+            "name": "Oussama Achouri"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="view-all-tools">
+            <a href="#" class="tools-btn" id="viewAllToolsBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                View All Tools
+            </a>
+        </div>
+        <header>
+            <h1 class="main-section-title">IP WHOIS Lookup – Find Owner, Registration Details, and More</h1>
+            <p>Quickly look up any IP address WHOIS information. Get ownership details, registration dates, and network information with our free WHOIS lookup tool. No signup needed</p>
+        </header>
+        
+        <main>
+            <div class="lookup-section">
+                <button id="myIpBtn" class="my-ip-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Use My IP
+                </button>
+                <input type="text" id="ipInput" placeholder="Enter IP Address (e.g. 8.8.8.8)">
+                <button id="lookupBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Lookup
+                </button>
+            </div>
+
+            <div id="resultSection" class="result-section">
+                <div id="rawWhoisData" class="raw-whois-data">
+                    <pre id="whoisResults">Enter an IP address and click Lookup to see the WHOIS information.</pre>
+                </div>
+                <div id="mapContainer" class="map-container"></div>
+            </div>
+
+            <section class="benefits-section">
+                <div class="container">
+                    <h2 class="main-section-title">IP WHOIS Lookup Tool – Fast, Free, No Signup</h2>
+                    <p>Instant IP WHOIS lookup – check any IP for ownership, registration details, and more. Fast, free, and accurate results with no signup required.</p>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M12 12l3 3"></path>
+                                </svg>
+                            </div>
+                            <h3>Enhanced Security</h3>
+                            <p>Quickly identify potential security risks and suspicious IP addresses.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <h3>Comprehensive Details</h3>
+                            <p>Access detailed geolocation, network, and ISP information instantly.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>Privacy Protection</h3>
+                            <p>Understand and manage your online privacy and digital footprint.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M21 8a2 2 0 0 0-2-2h-2v4h2a2 2 0 0 0 2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3>Network Intelligence</h3>
+                            <p>Gain insights into network infrastructure and connection details.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <circle cx="12" cy="8" r="3"></circle>
+                                </svg>
+                            </div>
+                            <h3>Geolocation Accuracy</h3>
+                            <p>Pinpoint precise geographic location with interactive map view.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <h3>User-Friendly Interface</h3>
+                            <p>Simple, intuitive design for effortless IP address exploration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-section">
+                <div class="container">
+                    <div class="article-content">
+                        <h2 class="article-title">IP WHOIS Lookup: Your Digital Detective for Internet Intelligence</h2>
+                        <div class="article-text" w-tid="189">
+                            <p w-tid="191">Ever wondered who owns that suspicious IP address? Is it a legitimate business... or something more concerning?</p>
+
+                            <p>With our IP WHOIS Lookup tool (aka your digital investigator), you'll get comprehensive ownership information. It's the registration data finder you didn't know you needed — but will definitely appreciate. Enter an IP and unveil its secrets instantly.</p>
+
+                            <p>It's fast. It's free. It works. Let's explore.</p>
+
+                            <h3>Wait, What's WHOIS Information?</h3>
+                            <p>Think of WHOIS data like property records... but for internet addresses. It tells you who owns and manages IP addresses, including registration details, technical contacts, and administrative information.</p>
+
+                            <p>Two types of information exist:</p>
+                            <ul>
+                                <li>Basic WHOIS – ownership, networks, and contact details</li>
+                                <li>Detailed WHOIS – registration dates, administrative contacts, and technical information</li>
+                            </ul>
+                            <p>Every IP address on the internet has associated WHOIS data, even if parts may be redacted for privacy.</p>
+
+                            <h3>What Does This WHOIS Lookup Tool Do?</h3>
+                            <p>You enter an IP. We retrieve comprehensive WHOIS information — the ownership details, registration dates, network allocations, and more. It's like a background check for IP addresses:</p>
+                            <ul>
+                                <li>🏢 Organization details (the entity that owns the IP block)</li>
+                                <li>📅 Registration and allocation dates</li>
+                                <li>📧 Administrative and technical contacts</li>
+                                <li>🌎 Regional Internet Registry information</li>
+                                <li>🔢 Network range and CIDR notation</li>
+                            </ul>
+                            <p>Our tool provides the complete picture — directly from authoritative WHOIS databases worldwide.</p>
+
+                            <h3>Why Would You Use WHOIS Lookup?</h3>
+                            <ol>
+                                <li><strong>Investigating suspicious activity</strong><br>
+                                When you spot an unusual IP in your logs, WHOIS data helps identify if it's from a legitimate business or potential threat actor.</li>
+                                <li><strong>Network troubleshooting</strong><br>
+                                WHOIS data helps network administrators identify peering relationships and contact information for other networks.</li>
+                                <li><strong>Cybersecurity research</strong><br>
+                                Security professionals use WHOIS data to track down the origins of malicious traffic and identify patterns.</li>
+                                <li><strong>Legal investigations</strong><br>
+                                Attorneys and law enforcement use WHOIS data to establish ownership in cases of copyright infringement or network abuse.</li>
+                            </ol>
+
+                            <h3>Is the WHOIS Information Always Complete?</h3>
+                            <p>Let's be transparent about limitations:</p>
+                            <ul>
+                                <li>Some registrants use privacy protection services</li>
+                                <li>Different regional registries (ARIN, RIPE, APNIC, etc.) provide varying levels of detail</li>
+                                <li>Some data may be redacted due to privacy regulations like GDPR</li>
+                            </ul>
+                            <p>So... it's as comprehensive as the registry allows, but may vary by region and privacy settings.</p>
+
+                            <h3>What Makes Our IP WHOIS Lookup Better?</h3>
+                            <ul>
+                                <li>✅ Direct queries to authoritative WHOIS databases</li>
+                                <li>✅ Comprehensive data from all five regional internet registries</li>
+                                <li>✅ Clean, readable formatting of complex WHOIS responses</li>
+                                <li>✅ No login, no limits, no data collection</li>
+                                <li>✅ Works with both IPv4 and IPv6 addresses</li>
+                                <li>✅ Completely free (because network intelligence should be accessible)</li>
+                            </ul>
+                            <p>It's not just fast and free. It's a comprehensive WHOIS lookup tool for both IPv4 and IPv6 addresses — no sign-up, no restrictions, no unnecessary complexity.</p>
+
+                            <h3>Understanding WHOIS Privacy</h3>
+                            <p>WHOIS data is publicly accessible by design, allowing network operators to contact each other. However, privacy concerns have led to some information being masked or redacted, especially for individuals. Organizations typically have more complete and accessible records.</p>
+                            
+                            <h3>About Our IP WHOIS Lookup Tool</h3>
+                            <p>Our tool queries official registry databases (ARIN, RIPE, APNIC, LACNIC, and AFRINIC) to provide the most accurate and up-to-date WHOIS information available. Whether you're investigating network issues, researching cybersecurity threats, or simply curious about IP ownership, our tool delivers authoritative data directly from the source.</p>
+
+                            <h3>Bonus: How to Use WHOIS Data Effectively</h3>
+                            <ul>
+                                <li>Look for patterns across multiple suspicious IPs (same owner or network)</li>
+                                <li>Cross-reference WHOIS data with other intelligence sources</li>
+                                <li>Compare registration dates with known security events</li>
+                                <li>Use organization information to establish legitimate business vs. suspicious entities</li>
+                                <li>Contact abuse@ email addresses when reporting malicious activity from an IP</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h3>FAQ – IP WHOIS Lookup (The Essential Questions)</h3>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <h4>Q: Is this WHOIS lookup really free?</h4>
+                                <p>Absolutely. No upsells. No hidden fees. Just complete WHOIS data.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I find personal information with this?</h4>
+                                <p>Only what's publicly available in WHOIS records, which varies by registry and privacy settings.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Does it work for all IP addresses?</h4>
+                                <p>Yes, for both IPv4 and IPv6 addresses from any region worldwide.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Do you store the IPs I look up?</h4>
+                                <p>No. We don't track or store your WHOIS queries.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I use it for commercial purposes?</h4>
+                                <p>Yes, though each registry has its own terms for bulk usage.</p>
+                            </div>
+                            <div class="faq-item" w-tid="395">
+                                <h4>Q: Why is some WHOIS data missing?</h4>
+                                <p>Privacy protections, registry policies, or GDPR compliance may limit what's displayed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="similar-tools-section">
+                <h3>Similar Tools You Might Like</h3>
+                <div class="similar-tools-grid">
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <span>Password Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <span>URL Shortener</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <span>QR Code Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <span>JSON Formatter</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <span>HTML to Markdown</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span>Random Name Generator</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo"><a href="#">IP WHOIS Lookup</a>
+                </div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-copyright"> All rights reserved to <a href="#">mecoding</a>.</div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
