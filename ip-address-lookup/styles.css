@@ -17,7 +17,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-        background: linear-gradient(90deg, #f6f6f7 0%, #ffffff 100%);
+    background: linear-gradient(90deg, #f6f6f7 0%, #ffffff 100%);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -347,6 +347,63 @@ header p {
     line-height: 1.6;
 }
 
+.similar-tools-section {
+    margin-top: 3rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.similar-tools-section h3 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-color-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.similar-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.similar-tool-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-primary);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-subtle);
+    justify-content: center;
+}
+
+.similar-tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    background-color: white;
+}
+
+.tool-icon {
+    display: none;
+}
+
+.similar-tool-card span {
+    transition: color 0.3s ease;
+}
+
+.similar-tool-card:hover span {
+    color: var(--accent-color);
+}
+
 .footer {
     background-color: white;
     padding: 2rem 0;
@@ -369,6 +426,39 @@ header p {
     color: var(--accent-color);
 }
 
+.footer-logo a {
+    color: var(--accent-color);
+    text-decoration: none;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-color-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer-logo a:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.footer-logo a:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-color-dark));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.footer-logo a:hover:after {
+    width: 80%;
+}
+
 .footer-nav ul {
     display: flex;
     list-style: none;
@@ -389,6 +479,18 @@ header p {
 .footer-copyright {
     color: #6b7280;
     font-size: 0.9rem;
+}
+
+.footer-copyright a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.footer-copyright a:hover {
+    color: var(--accent-color-dark);
+    text-decoration: underline;
 }
 
 .article-title {
@@ -434,6 +536,33 @@ h1.main-section-title::before {
 h1.main-section-title:hover {
     transform: scale(1.02);
     text-shadow: 0 6px 20px rgba(59,130,246,0.3);
+}
+
+.view-all-tools {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.tools-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(109, 40, 217, 0.3);
+    text-decoration: none;
+}
+
+.tools-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(109, 40, 217, 0.4);
 }
 
 @media (max-width: 1024px) {
@@ -530,6 +659,9 @@ h1.main-section-title:hover {
     .article-title {
         font-size: 2rem;
     }
+    .similar-tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 480px) {
@@ -549,5 +681,8 @@ h1.main-section-title:hover {
     #lookupBtn {
         font-size: 0.9rem;
         padding: 0.625rem 1rem;
+    }
+    .similar-tools-grid {
+        grid-template-columns: 1fr;
     }
 }
