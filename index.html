@@ -27,7 +27,7 @@
     <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
     
     <!-- Link to Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- JSON-LD Schema for Structured Data -->
@@ -85,7 +85,7 @@
         <div class="container">
             <h2 class="section-title">All Tools</h2>
             
-            <div class="tools-grid">
+            <div class="tools-grid" id="tools-container">
                 <a href="ip-address-lookup" class="tool-card">
                     <div class="tool-icon"><i class="ri-global-line"></i></div>
                     <h3>IP Address Lookup</h3>
@@ -121,6 +121,48 @@
                     <h3>Text Case Converter</h3>
                     <p>Convert text between different letter cases.</p>
                 </a>
+
+                <a href="#" class="tool-card">
+                    <div class="tool-icon"><i class="ri-hashtag-line"></i></div>
+                    <h3>Hash Generator</h3>
+                    <p>Generate MD5, SHA-1, SHA-256 and other hashes.</p>
+                </a>
+                
+                <a href="#" class="tool-card">
+                    <div class="tool-icon"><i class="ri-time-line"></i></div>
+                    <h3>Unix Timestamp Converter</h3>
+                    <p>Convert between Unix timestamps and human dates.</p>
+                </a>
+                
+                <a href="#" class="tool-card">
+                    <div class="tool-icon"><i class="ri-edit-line"></i></div>
+                    <h3>Text Diff Checker</h3>
+                    <p>Compare two text snippets and find differences.</p>
+                </a>
+                
+                <a href="#" class="tool-card">
+                    <div class="tool-icon"><i class="ri-file-reduce-line"></i></div>
+                    <h3>URL Encoder/Decoder</h3>
+                    <p>Encode or decode URLs and query parameters.</p>
+                </a>
+                
+                <a href="#" class="tool-card">
+                    <div class="tool-icon"><i class="ri-file-copy-line"></i></div>
+                    <h3>Base64 Converter</h3>
+                    <p>Encode or decode Base64 strings easily.</p>
+                </a>
+                
+                <a href="#" class="tool-card">
+                    <div class="tool-icon"><i class="ri-image-line"></i></div>
+                    <h3>Image Converter</h3>
+                    <p>Convert images between different formats.</p>
+                </a>
+            </div>
+
+            <div class="pagination-container">
+                <div class="pagination" id="pagination">
+                    <!-- Pagination buttons will be added by JavaScript -->
+                </div>
             </div>
         </div>
     </section>
@@ -184,6 +226,6 @@
         </div>
     </footer>
     
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
