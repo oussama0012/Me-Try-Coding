@@ -205,7 +205,7 @@ a {
 }
 
 .search-bar button i {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
 }
 
 .tools-section {
@@ -258,15 +258,7 @@ a {
 }
 
 .tool-icon {
-    width: 70px;
-    height: 70px;
-    background-color: rgba(99, 102, 241, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
+    display: none;  
 }
 
 .tool-card:hover .tool-icon {
@@ -328,10 +320,7 @@ a {
 }
 
 .feature i {
-    font-size: 3rem;
-    color: var(--accent-color);
-    margin-bottom: 20px;
-    display: inline-block;
+    display: none;  
 }
 
 .feature h3 {
@@ -425,6 +414,22 @@ a {
     padding-top: 20px;
     color: var(--text-secondary);
     border-top: 1px solid var(--border-color);
+}
+
+body.icons-failed [class^="ri-"], 
+body.icons-failed [class*=" ri-"] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.7em;
+    line-height: 1em;
+    padding: 0.5em;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 @media (max-width: 992px) {
