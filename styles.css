@@ -296,6 +296,10 @@ a {
     line-height: 1.5;
 }
 
+.tool-card.hidden {
+    display: none;
+}
+
 .features-section {
     padding: 80px 0;
     background-color: var(--bg-primary);
@@ -338,6 +342,42 @@ a {
 
 .feature p {
     color: var(--text-secondary);
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.pagination {
+    display: flex;
+    gap: 10px;
+}
+
+.pagination-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.pagination-button:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.pagination-button.active {
+    background-color: var(--accent-color);
+    color: white;
 }
 
 .footer {
