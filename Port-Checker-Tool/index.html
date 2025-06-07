@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="Instant port checker – verify if ports are open or closed on any host. Fast, free, and accurate results with no signup required.">
+    <meta name="keywords" content="port checker, port scanner, open ports, network ports, port status, free port tool">
+    <meta name="author" content="Oussama Achouri">
+    <meta name="robots" content="index, follow">
+
+    <title>Port Checker Tool</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Port Checker Tool – Check Open Ports Instantly">
+    <meta property="og:description" content="Verify if ports are open or closed on any host with our free and fast Port Checker tool. No sign-up required.">
+    <meta property="og:image" content="https://me-coding.com/Me%20Coding.png">
+    <meta property="og:url" content="https://me-coding.com/port-checker/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Port Checker Tool – Check Open Ports Instantly">
+    <meta name="twitter:description" content="Use our port checker tool to verify if ports are open or closed on any host or IP address. 100% free.">
+    <meta name="twitter:image" content="https://me-coding.com/Me%20Coding.png">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://me-coding.com/port-checker/">
+    <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
+
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="potcstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Port Checker Tool",
+        "url": "https://me-coding.com/port-checker/",
+        "image": "https://me-coding.com/Me%20Coding.png",
+        "description": "A fast and free Port Checker tool that verifies if ports are open or closed on any host or IP address.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "author": {
+            "@type": "Person",
+            "name": "Oussama Achouri"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="view-all-tools">
+            <a href="https://me-coding.com/" class="tools-btn" id="viewAllToolsBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                View All Tools
+            </a>
+        </div>
+        <header>
+            <h1 class="main-section-title">Port Checker Tool – Verify Open & Closed Ports</h1>
+            <p>Quickly check if a port is open or closed on any host or IP address. Get instant results with our free port checker tool. No signup needed</p>
+        </header>
+        
+        <main>
+            <div class="lookup-section">
+                <button id="myIpBtn" class="my-ip-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Use My IP
+                </button>
+                <input type="text" id="ipInput" placeholder="Enter IP Address or Domain (e.g. 8.8.8.8, google.com)">
+                <p class="input-hint">Accepted formats: Valid IP (e.g. 192.168.1.1) or domain name (e.g. example.com)</p>
+                <input type="text" id="portInput" placeholder="Enter Port (e.g. 80, 443)">
+                <button id="lookupBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Check Port
+                </button>
+            </div>
+
+            <div id="resultSection" class="result-section">
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3>Host</h3>
+                        <p id="hostInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Port</h3>
+                        <p id="portInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Status</h3>
+                        <p id="statusInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Response Time</h3>
+                        <p id="responseInfo">-</p>
+                    </div>
+                </div>
+                <div id="commonPortsContainer" class="common-ports-container">
+                    <h3>Common Ports Reference</h3>
+                    <div class="common-ports-grid">
+                        <div class="port-item"><span>21</span> - FTP</div>
+                        <div class="port-item"><span>22</span> - SSH</div>
+                        <div class="port-item"><span>23</span> - Telnet</div>
+                        <div class="port-item"><span>25</span> - SMTP</div>
+                        <div class="port-item"><span>53</span> - DNS</div>
+                        <div class="port-item"><span>80</span> - HTTP</div>
+                        <div class="port-item"><span>110</span> - POP3</div>
+                        <div class="port-item"><span>143</span> - IMAP</div>
+                        <div class="port-item"><span>443</span> - HTTPS</div>
+                        <div class="port-item"><span>3306</span> - MySQL</div>
+                        <div class="port-item"><span>3389</span> - RDP</div>
+                        <div class="port-item"><span>5432</span> - PostgreSQL</div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="benefits-section">
+                <div class="container">
+                    <h2 class="main-section-title">Port Checker Tool – Fast, Free, No Signup</h2>
+                    <p>Instant port checking – verify if ports are open or closed on any host. Fast, free, and accurate results with no signup required.</p>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M12 12l3 3"></path>
+                                </svg>
+                            </div>
+                            <h3>Enhanced Security</h3>
+                            <p>Quickly identify open ports and potential security vulnerabilities in your network.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <h3>Comprehensive Details</h3>
+                            <p>Access detailed geolocation, network, and ISP information instantly.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>Privacy Protection</h3>
+                            <p>Understand and manage your online privacy and digital footprint.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M21 8a2 2 0 0 0-2-2h-2v4h2a2 2 0 0 0 2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3>Network Intelligence</h3>
+                            <p>Gain insights into network infrastructure and connection details.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <circle cx="12" cy="8" r="3"></circle>
+                                </svg>
+                            </div>
+                            <h3>Geolocation Accuracy</h3>
+                            <p>Pinpoint precise geographic location with interactive map view.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <h3>User-Friendly Interface</h3>
+                            <p>Simple, intuitive design for effortless IP address exploration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-section">
+                <div class="container">
+                    <div class="article-content">
+                        <h2 class="article-title">Port Checker: Your Network Detective for Server Security</h2>
+                        <div class="article-text" w-tid="189">
+                            <p w-tid="191">Ever wondered if that essential port is actually open on your server? Is your website accessible... or is there a firewall blocking connections?</p>
+
+                            <p>With our Port Checker tool, you'll finally get clear answers. It's the port scanning tool you've been looking for — simple yet powerful. Enter a host and port number and get instant results.</p>
+
+                            <p>It's fast. It's free. It works. Let's go.</p>
+
+                            <h3>Wait, What's a Port Anyway?</h3>
+                            <p>Think of ports like different doors to your server or computer. Each door (port) lets specific types of traffic in and out — web traffic, email, FTP, and more.</p>
+
+                            <p>Common ports include:</p>
+                            <ul>
+                                <li>Port 80 – HTTP (standard web traffic)</li>
+                                <li>Port 443 – HTTPS (secure web traffic)</li>
+                                <li>Port 22 – SSH (secure remote access)</li>
+                                <li>Port 21 – FTP (file transfers)</li>
+                            </ul>
+                            <p>Every service running on your server uses specific ports to communicate with the outside world.</p>
+
+                            <h3>What Does This Magical Port Checker Do?</h3>
+                            <p>You enter a host (domain or IP) and a port number. We check if that port is accepting connections. It's like knocking on a door to see if anyone answers:</p>
+                            <ul>
+                                <li>🔓 Open ports – The door is unlocked and accepting connections</li>
+                                <li>🔒 Closed ports – The door is locked or nobody's answering</li>
+                                <li>🧱 Filtered ports – Something (likely a firewall) is blocking our knock</li>
+                                <li>⏱️ Response time – How quickly the port responds</li>
+                            </ul>
+                            <p>This simple check can help diagnose numerous connectivity and security issues.</p>
+
+                            <h3>Why Would You Use This?</h3>
+                            <ol>
+                                <li><strong>Troubleshooting server issues</strong><br>
+                                Is your website down? Maybe port 80 or 443 is closed. Can't connect via SSH? Check if port 22 is open.</li>
+                                <li><strong>Security auditing</strong><br>
+                                Find out which ports are open on your server that shouldn't be. Open ports can be security vulnerabilities.</li>
+                                <li><strong>Verifying firewall configurations</strong><br>
+                                After setting up firewall rules, verify that only the necessary ports are accessible.</li>
+                                <li><strong>Checking remote services</strong><br>
+                                Need to know if a database, email server, or other service is reachable? Check its port status.</li>
+                            </ol>
+
+                            <h3>Is the Check Always Accurate?</h3>
+                            <p>Let's be real — the tool is smart, but network complexity can affect results:</p>
+                            <ul>
+                                <li>Firewalls may block our checking requests</li>
+                                <li>Some networks use port forwarding</li>
+                                <li>Cloud providers might have additional security layers</li>
+                                <li>NAT (Network Address Translation) can complicate results</li>
+                            </ul>
+                            <p>So… it's highly reliable, but network complexities exist.</p>
+
+                            <h3>What Makes Our Port Checker Better?</h3>
+                            <ul>
+                                <li>✅ No ads shouting at you</li>
+                                <li>✅ Works on desktop, tablet, phone</li>
+                                <li>✅ Loads faster than your coffee machine</li>
+                                <li>✅ No login, no limits, no drama</li>
+                                <li>✅ Clear, easy-to-understand results</li>
+                                <li>✅ Completely free (because who wants to pay for basic checks?)</li>
+                            </ul>
+                            <p>It's not just fast and free. It's a smart port scanner without the complexity — no sign-up, no BS, no ads screaming in your face.</p>
+
+                            <h3>Common Port Numbers and What They Do</h3>
+                            <p>Understanding common ports helps with network troubleshooting:</p>
+                            <ul>
+                                <li><strong>21</strong> - FTP (File Transfer Protocol)</li>
+                                <li><strong>22</strong> - SSH (Secure Shell)</li>
+                                <li><strong>25</strong> - SMTP (Email sending)</li>
+                                <li><strong>53</strong> - DNS (Domain Name System)</li>
+                                <li><strong>80</strong> - HTTP (Web traffic)</li>
+                                <li><strong>110</strong> - POP3 (Email receiving)</li>
+                                <li><strong>143</strong> - IMAP (Email synchronization)</li>
+                                <li><strong>443</strong> - HTTPS (Secure web traffic)</li>
+                                <li><strong>3306</strong> - MySQL (Database)</li>
+                                <li><strong>3389</strong> - RDP (Remote Desktop)</li>
+                            </ul>
+
+                            <h3>Bonus: Network Security Tips</h3>
+                            <ul>
+                                <li>Only open ports that are absolutely necessary</li>
+                                <li>Use firewalls to restrict access to sensitive ports</li>
+                                <li>Regularly audit your open ports</li>
+                                <li>Consider using non-standard port numbers for common services</li>
+                                <li>Implement rate limiting to prevent brute force attacks</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h3>FAQ – Port Checker (The Silly and Serious Stuff)</h3>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <h4>Q: Is this thing really free?</h4>
+                                <p>Yep. No strings. No trials. Just port checking joy.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I check multiple ports at once?</h4>
+                                <p>Not yet, but you can run individual checks quickly one after another.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Will it work on my phone?</h4>
+                                <p>Of course. We're not in 2005 anymore.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Do you track what ports I'm checking?</h4>
+                                <p>Nope. We don't care what ports you're interested in.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I use it 100 times a day?</h4>
+                                <p>Go wild. We don't limit checks.</p>
+                            </div>
+                            <div class="faq-item" w-tid="395">
+                                <h4>Q: What if the result is incorrect?</h4>
+                                <p>Try again or check from a different network. Firewalls can affect results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="similar-tools-section">
+                <h3>Similar Tools You Might Like</h3>
+                <div class="similar-tools-grid">
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <span>Password Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <span>URL Shortener</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <span>QR Code Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <span>JSON Formatter</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <span>HTML to Markdown</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span>Random Name Generator</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            
+            <div class="footer-container">
+                <div class="footer-logo"><a href="#">Port Checker Tool</a>
+                </div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-copyright"> All rights reserved to <a href="#">mecoding</a>.</div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="potcscript.js"></script>
+</body>
+</html>
