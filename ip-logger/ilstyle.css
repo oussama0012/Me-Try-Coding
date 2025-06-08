@@ -173,7 +173,7 @@ header p {
 
 .result-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -185,7 +185,7 @@ header p {
     text-align: left;
     transition: all 0.3s ease;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .result-card:hover {
@@ -720,47 +720,6 @@ h1.main-section-title:hover {
 .copy-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 6px rgba(59,130,246,0.3);
-}
-
-#trackingLinkInfo {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-#trackingUrl {
-    background: linear-gradient(to right, #f0f4f8, white);
-    padding: 8px 12px;
-    border-radius: 8px;
-    border-left: 3px solid var(--accent-color);
-    font-family: monospace;
-    font-size: 0.9rem;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-}
-
-#trackingUrl:hover {
-    background: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
-}
-
-.me-coding-badge {
-    display: inline-flex;
-    align-items: center;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-color-dark));
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-right: 8px;
-    box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
 }
 
 @media (max-width: 1024px) {
