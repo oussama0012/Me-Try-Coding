@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="Test your internet speed instantly – check download, upload, and ping. Fast, free, and accurate results with no signup required.">
+    <meta name="keywords" content="internet speed test, bandwidth test, connection speed, network speed, download speed, upload speed, ping test, free speed test">
+    <meta name="author" content="Oussama Achouri">
+    <meta name="robots" content="index, follow">
+
+    <title>Internet Speed Test</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Internet Speed Test – Check Your Connection Speed Instantly">
+    <meta property="og:description" content="Discover your download speed, upload speed, ping, and more with our free and fast Internet Speed Test tool. No sign-up required.">
+    <meta property="og:image" content="https://me-coding.com/Me%20Coding.png">
+    <meta property="og:url" content="https://me-coding.com/internet-speed-test/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Internet Speed Test – Check Your Connection Speed Instantly">
+    <meta name="twitter:description" content="Use our speed test tool to get details like your download speed, upload speed, and ping in seconds. 100% free.">
+    <meta name="twitter:image" content="https://me-coding.com/Me%20Coding.png">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://me-coding.com/internet-speed-test/">
+    <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
+
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Internet Speed Test",
+        "url": "https://me-coding.com/internet-speed-test/",
+        "image": "https://me-coding.com/Me%20Coding.png",
+        "description": "A fast and free Internet Speed Test tool that measures your download speed, upload speed, ping, and more instantly.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "author": {
+            "@type": "Person",
+            "name": "Oussama Achouri"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="view-all-tools">
+            <a href="https://me-coding.com/" class="tools-btn" id="viewAllToolsBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                View All Tools
+            </a>
+        </div>
+        <header>
+            <h1 class="main-section-title">Internet Speed Test – Check Your Connection Speed</h1>
+            <p>Quickly test your internet connection speed. Get download, upload, ping, and more with our free internet speed test tool. No signup needed</p>
+        </header>
+        
+        <main>
+            <div class="lookup-section">
+                <button id="startTestBtn" class="my-ip-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Start Speed Test
+                </button>
+                <div id="progressContainer" class="progress-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <button id="shareResultsBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Share Results
+                </button>
+            </div>
+
+            <div id="resultSection" class="result-section">
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3>Download</h3>
+                        <p id="downloadInfo">- Mbps</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Upload</h3>
+                        <p id="uploadInfo">- Mbps</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Ping</h3>
+                        <p id="pingInfo">- ms</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Jitter</h3>
+                        <p id="jitterInfo">- ms</p>
+                    </div>
+                </div>
+                <div id="chartContainer" class="map-container">
+                    <canvas id="speedChart"></canvas>
+                </div>
+            </div>
+
+            <section class="benefits-section">
+                <div class="container">
+                    <h2 class="main-section-title">Internet Speed Test Tool – Fast, Free, No Signup</h2>
+                    <p>Instant internet speed measurement – check your download, upload speed, ping, and more. Fast, free, and accurate results with no signup required.</p>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                </svg>
+                            </div>
+                            <h3>Real-Time Results</h3>
+                            <p>Get accurate and real-time measurements of your internet connection speed.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <h3>Comprehensive Testing</h3>
+                            <p>Measure download, upload, ping, and jitter for a complete picture of your connection.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>Privacy Focused</h3>
+                            <p>Test your speed without sharing personal data or requiring any sign up.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                            </div>
+                            <h3>Performance Insights</h3>
+                            <p>Gain insights into your network performance and connection quality.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <h3>Multi-Device Testing</h3>
+                            <p>Test your speed across different devices to compare performance.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <h3>User-Friendly Interface</h3>
+                            <p>Simple, intuitive design for effortless speed testing experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-section">
+                <div class="container">
+                    <div class="article-content">
+                        <h2 class="article-title">Internet Speed Test: Your Digital Speedometer for Better Browsing</h2>
+                        <div class="article-text">
+                            <p>Ever wondered why Netflix keeps buffering or why your Zoom calls drop? Time to find out if your internet is to blame!</p>
+
+                            <p>With our Internet Speed Test tool, you'll discover exactly how fast (or slow) your connection really is. It's the digital speedometer you didn't know you needed — but will definitely use again and again.</p>
+
+                            <p>It's fast. It's free. It works. Let's test your speed.</p>
+
+                            <h3>What's an Internet Speed Test Anyway?</h3>
+                            <p>Think of it as a check-up for your internet connection. It measures how quickly data travels between your device and the internet. The faster, the better!</p>
+
+                            <p>We measure four key metrics:</p>
+                            <ul>
+                                <li>Download Speed – how quickly you receive data (crucial for streaming, browsing)</li>
+                                <li>Upload Speed – how quickly you send data (important for video calls, posting photos)</li>
+                                <li>Ping – how long it takes for data to make a round trip (lower is better)</li>
+                                <li>Jitter – how consistent your connection is (lower means more stable)</li>
+                            </ul>
+                            <p>Every device that connects to the internet can benefit from a speed test.</p>
+
+                            <h3>What Does This Magical Speed Test Tool Do?</h3>
+                            <p>You click one button. We measure your connection speed and show you the results. It's like a health check-up for your internet:</p>
+                            <ul>
+                                <li>🔽 Download Speed (the most important one for most users)</li>
+                                <li>🔼 Upload Speed (critical for video calls and cloud uploads)</li>
+                                <li>⏱️ Ping (crucial for gaming and real-time applications)</li>
+                                <li>📊 Jitter (measures the stability of your connection)</li>
+                                <li>📈 Historical comparison (to see if your speed changes over time)</li>
+                            </ul>
+                            <p>All results are shown in real-time with a beautiful visual graph for easy understanding.</p>
+
+                            <h3>Why Would You Use This?</h3>
+                            <ol>
+                                <li><strong>Troubleshooting slow internet</strong><br>
+                                Is it your internet or just that specific website? Our tool gives you the definitive answer.</li>
+                                <li><strong>Checking if you're getting what you pay for</strong><br>
+                                ISPs promise speeds "up to" a certain number. Are you actually getting what you're paying for?</li>
+                                <li><strong>Before important video calls or gaming sessions</strong><br>
+                                Quick test before your job interview or gaming tournament could save you from frustration.</li>
+                                <li><strong>When shopping for a new internet plan</strong><br>
+                                Know your current speeds before upgrading to make an informed decision.</li>
+                            </ol>
+
+                            <h3>Is the Test Always Accurate?</h3>
+                            <p>Let's be real — no speed test is perfect, but ours is pretty darn good.</p>
+                            <ul>
+                                <li>Results can vary based on network traffic and time of day</li>
+                                <li>Wi-Fi connection quality affects results (testing via ethernet is more reliable)</li>
+                                <li>Background apps might be using your bandwidth</li>
+                            </ul>
+                            <p>So... it's accurate under ideal conditions. For best results, close other apps and use a wired connection if possible.</p>
+
+                            <h3>What Makes Our Speed Test Better?</h3>
+                            <ul>
+                                <li>✅ No ads interrupting your experience</li>
+                                <li>✅ Works on all devices - desktop, tablet, phone</li>
+                                <li>✅ Lightning-fast test completion</li>
+                                <li>✅ No login, no limits, no nonsense</li>
+                                <li>✅ Beautiful, easy-to-understand results</li>
+                                <li>✅ Completely free (because who wants to pay to test their speed?)</li>
+                            </ul>
+                            <p>It's not just fast and free. It's a comprehensive internet speed checker with an elegant interface - no sign-up, no BS, no ads screaming in your face.</p>
+
+                            <h3>How to Improve Your Internet Speed</h3>
+                            <p>If your test results are disappointing, try these tips:</p>
+                            <ul>
+                                <li>Restart your router (the classic IT solution that actually works)</li>
+                                <li>Move closer to your Wi-Fi router or use a wired connection</li>
+                                <li>Upgrade your router if it's more than 3-4 years old</li>
+                                <li>Check for background downloads or updates hogging bandwidth</li>
+                                <li>Contact your ISP if speeds are consistently below what you're paying for</li>
+                            </ul>
+                            
+                            <h3>About Our Internet Speed Test tool</h3>
+                            <p>Our Internet Speed Test tool works as a bandwidth checker, connection speed analyzer, and performance monitor. Whether you want to test your download speed, upload capacity, or ping response time — this tool gets the job done right.</p>
+                            
+                            <h3>Bonus: Common Internet Speed Terms Explained</h3>
+                            <ul>
+                                <li><strong>Mbps</strong> - Megabits per second (not to be confused with MBps)</li>
+                                <li><strong>Latency</strong> - The delay before data transfer begins (similar to ping)</li>
+                                <li><strong>Bandwidth</strong> - The maximum data transfer rate of your connection</li>
+                                <li><strong>Packet Loss</strong> - When data fails to reach its destination</li>
+                                <li><strong>Throttling</strong> - When your ISP intentionally slows your connection</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h3>FAQ – Internet Speed Test (The Silly and Serious Stuff)</h3>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <h4>Q: Is this thing really free?</h4>
+                                <p>Absolutely! No credit card, no signup, no tricks.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: How often should I test my speed?</h4>
+                                <p>Whenever you suspect issues, or monthly to track performance.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Will it work on my phone?</h4>
+                                <p>Yes! Mobile, desktop, tablet - we've got you covered.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Do you track my browsing habits?</h4>
+                                <p>Nope. We only measure your connection speed, nothing else.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I use it multiple times a day?</h4>
+                                <p>Test as much as you want. We don't limit usage.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: What's a good internet speed?</h4>
+                                <p>25+ Mbps for streaming, 100+ Mbps for multiple users/devices.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="similar-tools-section">
+                <h3>Similar Tools You Might Like</h3>
+                <div class="similar-tools-grid">
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <span>Ping Test</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <span>DNS Lookup</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <span>Traceroute Tool</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <span>IP Address Lookup</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <span>Network Scanner</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
+                        <span>Latency Test</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <a href="https://fazier.com" target="_blank"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=featured&theme=light" width=250 alt="Fazier badge" /></a>
+            <div class="footer-container">
+                <div class="footer-logo"><a href="#">Internet Speed Test</a>
+                </div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-copyright"> All rights reserved to <a href="#">mecoding</a>.</div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
