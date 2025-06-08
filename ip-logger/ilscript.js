@@ -71,36 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Generate tracking ID and create tracking URL
+        // Generate tracking ID but don't create or display tracking URL
         const trackingId = generateTrackingId();
-        const baseUrl = "https://me-coding.com/track/";
-        const trackingUrl = `${baseUrl}${trackingId}?to=${encodeURIComponent(url)}`;
-        
-        // Update UI with tracking information
-        trackingLinkInfo.innerHTML = `
-            <span class="me-coding-badge">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-                    <polyline points="16 7 22 7 22 13"></polyline>
-                </svg>
-                me-coding
-            </span>
-            <span id="trackingUrl">${trackingUrl}</span>
-            <button class="copy-btn" onclick="copyToClipboard('${trackingUrl}')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                Copy
-            </button>
-        `;
         
         visitsInfo.textContent = '0';
         statusInfo.textContent = 'Active';
         statusInfo.style.color = '#10b981';
         
         // Clear logs display
-        visitorLogs.innerHTML = '<p class="no-logs">No logs yet. Share your tracking link to start logging visitors.</p>';
+        visitorLogs.innerHTML = '<p class="no-logs">No logs yet. The logger is now active and will record visits.</p>';
         
         // Store tracking ID for this session
         currentTrackingId = trackingId;
@@ -217,10 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add clipboard copy function
     window.copyToClipboard = function(text) {
         navigator.clipboard.writeText(text).then(() => {
-            showToast('Tracking link copied! Powered by me-coding.com');
+            showToast('Information copied to clipboard!');
         }).catch(err => {
-            showToast('Failed to copy link. Please try again.');
+            showToast('Failed to copy. Please try again.');
             console.error('Could not copy text: ', err);
         });
+    };
+    
+    // Add dashboard view function (just a demo)
+    window.viewDashboard = function(trackingId) {
+        showToast(`Dashboard for tracking ID: ${trackingId}`);
     };
 });
