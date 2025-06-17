@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="Generate strong, secure passwords instantly. Customizable length, character sets, and security options. Free password generator with no signup required.">
+    <meta name="keywords" content="password generator, secure password, strong password, random password, password creator, free password tool">
+    <meta name="author" content="Oussama Achouri">
+    <meta name="robots" content="index, follow">
+
+    <title>Password Generator</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Password Generator – Create Strong, Secure Passwords Instantly">
+    <meta property="og:description" content="Generate secure passwords with our free password generator. Customize length, character sets, and security options. No sign-up required.">
+    <meta property="og:image" content="https://me-coding.com/Me%20Coding.png">
+    <meta property="og:url" content="https://me-coding.com/password-generator/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Password Generator – Create Strong, Secure Passwords Instantly">
+    <meta name="twitter:description" content="Use our password generator to create strong, secure passwords with customizable options. 100% free and secure.">
+    <meta name="twitter:image" content="https://me-coding.com/Me%20Coding.png">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://me-coding.com/password-generator/">
+    <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
+
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Password Generator",
+        "url": "https://me-coding.com/password-generator/",
+        "image": "https://me-coding.com/Me%20Coding.png",
+        "description": "A free and secure password generator tool that creates strong, customizable passwords instantly with no signup required.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "author": {
+            "@type": "Person",
+            "name": "Oussama Achouri"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="view-all-tools">
+            <a href="https://me-coding.com/" class="tools-btn" id="viewAllToolsBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                View All Tools
+            </a>
+        </div>
+        <header>
+            <h1 class="main-section-title">Password Generator – Create Strong, Secure Passwords</h1>
+            <p>Generate strong, secure passwords instantly. Customize length, character sets, and security options with our free password generator. No signup needed</p>
+        </header>
+        
+        <main>
+            <div class="generator-section">
+                <div class="password-options">
+                    <div class="option-group">
+                        <label for="lengthSlider">Password Length: <span id="lengthValue">12</span></label>
+                        <input type="range" id="lengthSlider" min="4" max="128" value="12">
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="includeUppercase" checked> Uppercase Letters (A-Z)</label>
+                        <label><input type="checkbox" id="includeLowercase" checked> Lowercase Letters (a-z)</label>
+                        <label><input type="checkbox" id="includeNumbers" checked> Numbers (0-9)</label>
+                        <label><input type="checkbox" id="includeSymbols" checked> Symbols (!@#$...)</label>
+                    </div>
+                </div>
+                <button id="generateBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                    Generate Password
+                </button>
+            </div>
+
+            <div id="resultSection" class="result-section">
+                <div class="password-display">
+                    <input type="text" id="generatedPassword" readonly placeholder="Your password will appear here...">
+                    <button id="copyBtn" title="Copy to clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3>Strength</h3>
+                        <p id="strengthInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Entropy</h3>
+                        <p id="entropyInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Character Count</h3>
+                        <p id="charCountInfo">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Crack Time</h3>
+                        <p id="crackTimeInfo">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="benefits-section">
+                <div class="container">
+                    <h2 class="main-section-title">Password Generator Tool – Fast, Free, Secure</h2>
+                    <p>Create strong, secure passwords instantly with our free password generator. Customizable options and no signup required.</p>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M12 12l3 3"></path>
+                                </svg>
+                            </div>
+                            <h3>Maximum Security</h3>
+                            <p>Generate cryptographically secure passwords that protect against brute force attacks.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <h3>Fully Customizable</h3>
+                            <p>Control password length, character sets, and complexity to meet your specific requirements.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>Privacy First</h3>
+                            <p>Generated passwords are never stored or transmitted. Everything happens in your browser.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M21 8a2 2 0 0 0-2-2h-2v4h2a2 2 0 0 0 2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3>Instant Generation</h3>
+                            <p>Create multiple strong passwords in seconds with our fast, efficient algorithm.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <circle cx="12" cy="8" r="3"></circle>
+                                </svg>
+                            </div>
+                            <h3>Strength Analysis</h3>
+                            <p>Real-time password strength analysis with entropy calculations and crack time estimates.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <h3>User-Friendly</h3>
+                            <p>Simple, intuitive interface with one-click copy and easy customization options.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-section">
+                <div class="container">
+                    <div class="article-content">
+                        <h2 class="article-title">Password Generator: Your Digital Shield Against Cyber Threats</h2>
+                        <div class="article-text">
+                            <p>Still using "password123" or your pet's name? Time for an upgrade! Our password generator creates bulletproof passwords that would make hackers cry.</p>
+
+                            <p>With our Password Generator tool (aka your personal security guard), you'll never run out of strong password ideas again. It's the password creator you didn't know you desperately needed.</p>
+
+                            <p>It's fast. It's free. It's secure. Let's make your accounts unhackable.</p>
+
+                            <h3>Why Do You Need Strong Passwords?</h3>
+                            <p>Think of passwords like the locks on your house. Would you use a flimsy lock made of paper? Your digital life deserves better protection than "123456" or "password".</p>
+
+                            <p>Weak passwords are like leaving your front door wide open with a sign saying "Rob me please!" Strong passwords are your first line of defense against:</p>
+                            <ul>
+                                <li>Brute force attacks (computers trying millions of combinations)</li>
+                                <li>Dictionary attacks (using common words and phrases)</li>
+                                <li>Social engineering (hackers guessing based on your personal info)</li>
+                                <li>Data breaches (when one weak password compromises everything)</li>
+                            </ul>
+
+                            <h3>What Makes Our Password Generator Special?</h3>
+                            <p>You click a button. We serve up a password that would take hackers centuries to crack. It's like having a security expert in your pocket, but without the expensive consulting fees:</p>
+                            <ul>
+                                <li>🔐 Cryptographically secure random generation</li>
+                                <li>⚙️ Fully customizable length (4-128 characters)</li>
+                                <li>🎯 Choose your character sets (uppercase, lowercase, numbers, symbols)</li>
+                                <li>📊 Real-time strength analysis and entropy calculation</li>
+                                <li>⏱️ Crack time estimates (spoiler: it's usually "centuries")</li>
+                                <li>📋 One-click copy to clipboard</li>
+                            </ul>
+                            <p>No storage, no tracking, no drama. Your passwords are generated locally and never leave your device.</p>
+
+                            <h3>How to Use This Magical Password Creator</h3>
+                            <ol>
+                                <li><strong>Set your length</strong><br>
+                                Drag the slider to choose how long you want your password. Longer = stronger, but 12-16 characters usually does the trick.</li>
+                                <li><strong>Pick your ingredients</strong><br>
+                                Check the boxes for what you want: uppercase letters, lowercase, numbers, symbols. Mix and match like a password chef.</li>
+                                <li><strong>Hit Generate</strong><br>
+                                Click the magic button and watch as we create a password that would make Fort Knox jealous.</li>
+                                <li><strong>Copy and use</strong><br>
+                                One click copies it to your clipboard. Paste it wherever you need ultimate security.</li>
+                            </ol>
+
+                            <h3>Password Strength: What Do Those Numbers Mean?</h3>
+                            <p>We don't just generate passwords – we analyze them too:</p>
+                            <ul>
+                                <li><strong>Strength Score:</strong> Weak, Fair, Good, Strong, or Very Strong</li>
+                                <li><strong>Entropy:</strong> The randomness level (higher = better)</li>
+                                <li><strong>Character Count:</strong> Total characters in your password</li>
+                                <li><strong>Crack Time:</strong> How long it would take to break (aim for "centuries")</li>
+                            </ul>
+                            <p>If you see "Very Strong" and "centuries to crack," you're golden!</p>
+
+                            <h3>Password Best Practices (The Boring But Important Stuff)</h3>
+                            <ul>
+                                <li><strong>Use unique passwords everywhere</strong> – Don't recycle passwords like old socks</li>
+                                <li><strong>Enable two-factor authentication</strong> – Even if they crack your password, they still can't get in</li>
+                                <li><strong>Use a password manager</strong> – Store all those unique passwords safely</li>
+                                <li><strong>Change compromised passwords immediately</strong> – If a site gets hacked, update that password ASAP</li>
+                                <li><strong>Don't share passwords</strong> – Not even with your bestie</li>
+                            </ul>
+
+                            <h3>Common Password Mistakes to Avoid</h3>
+                            <ul>
+                                <li>Using personal information (birthdays, names, addresses)</li>
+                                <li>Dictionary words or common phrases</li>
+                                <li>Simple patterns (123456, qwerty, abc123)</li>
+                                <li>Reusing passwords across multiple sites</li>
+                                <li>Writing passwords on sticky notes</li>
+                                <li>Using the same password with slight variations</li>
+                            </ul>
+
+                            <h3>Why Our Generator Rocks</h3>
+                            <ul>
+                                <li>✅ Completely free (no premium upsells)</li>
+                                <li>✅ Works offline (no internet required after loading)</li>
+                                <li>✅ No registration or account needed</li>
+                                <li>✅ Mobile-friendly design</li>
+                                <li>✅ Instant generation and copying</li>
+                                <li>✅ Privacy-focused (nothing stored or tracked)</li>
+                            </ul>
+                            <p>It's not just fast and free. It's a smart password creator that puts security first – no compromises, no complications.</p>
+
+                            <h3>Stay Safe Out There!</h3>
+                            <p>Your digital security is only as strong as your weakest password. Don't let "password123" be the reason you lose your data, money, or digital identity.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h3>FAQ – Password Generator (The Questions Everyone Asks)</h3>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <h4>Q: Are the passwords really secure?</h4>
+                                <p>Absolutely! We use cryptographically secure random generation.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Do you store my passwords?</h4>
+                                <p>Never. Everything happens in your browser. We don't see or store anything.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: How long should my password be?</h4>
+                                <p>12-16 characters is great, but longer is always better for security.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: Can I use these for banking?</h4>
+                                <p>Yes! These passwords are perfect for your most important accounts.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: How often should I generate new passwords?</h4>
+                                <p>Generate unique passwords for every account. Update if there's a breach.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Q: What if I can't remember complex passwords?</h4>
+                                <p>Use a password manager! They remember so you don't have to.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="similar-tools-section">
+                <h3>Similar Tools You Might Like</h3>
+                <div class="similar-tools-grid">
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                        <span>IP Address Lookup</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <span>URL Shortener</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <span>QR Code Generator</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <span>JSON Formatter</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <span>HTML to Markdown</span>
+                    </a>
+                    <a href="#" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span>Random Name Generator</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo"><a href="#">Password Generator</a>
+                </div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-copyright"> All rights reserved to <a href="#">mecoding</a>.</div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
