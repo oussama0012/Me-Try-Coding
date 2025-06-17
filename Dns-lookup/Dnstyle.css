@@ -98,6 +98,17 @@ header p {
     box-shadow: 0 8px 20px rgba(59,130,246,0.4);
 }
 
+#lookupBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#lookupBtn:disabled:hover {
+    transform: none;
+    box-shadow: 0 6px 15px rgba(59,130,246,0.3);
+}
+
 .input-hint {
     display: flex;
     align-items: center;
@@ -629,6 +640,40 @@ h1.main-section-title:hover {
 
 .toast-notification svg {
     flex-shrink: 0;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    font-style: italic;
+    padding: 1rem;
+}
+
+.loading-indicator::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
 }
 
 @media (max-width: 1024px) {
