@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         document.body.appendChild(toast);
-        
+     
         // Show toast
         setTimeout(() => {
             toast.classList.add('show');
