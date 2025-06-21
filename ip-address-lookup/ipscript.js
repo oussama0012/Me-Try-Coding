@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const myIpBtn = document.getElementById('myIpBtn');
     const resultSection = document.getElementById('resultSection');
     const darkModeToggle = document.getElementById('darkModeToggle');
-    
+
     const locationInfo = document.getElementById('locationInfo');
     const networkInfo = document.getElementById('networkInfo');
     const ispInfo = document.getElementById('ispInfo');
