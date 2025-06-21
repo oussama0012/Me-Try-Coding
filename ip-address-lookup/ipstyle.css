@@ -9,7 +9,6 @@
     --shadow-hover: 0 12px 25px rgba(0,0,0,0.12);
     --body-bg: linear-gradient(90deg, #f6f6f7 0%, #ffffff 100%);
 }
-
 [data-theme="dark"] {
     --bg-primary: #1e293b;
     --text-primary: #f1f5f9;
