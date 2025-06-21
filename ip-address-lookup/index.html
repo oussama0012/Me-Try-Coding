@@ -30,7 +30,7 @@
     <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
 
     <!-- Styles and Fonts -->
-    <link rel="stylesheet" href="ipastyle.css">
+    <link rel="stylesheet" href="ipstyle.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -68,6 +68,15 @@
                 </svg>
                 View All Tools
             </a>
+            <button class="dark-mode-toggle" id="darkModeToggle">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="m12 2 1.09 3.26L16 4 13.74 6.26 17 12l-3.26-1.09L16 14 12 11.74 8 14l1.09-1.26L6 12l3.26-1.09L8 4l3.26 1.09L12 2Z"></path>
+                </svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </svg>
+            </button>
         </div>
         <header>
             <h1 class="main-section-title">IP Address Lookup – Find Location, ISP, and More</h1>
@@ -177,7 +186,7 @@
                         <div class="benefit-card">
                             <div class="benefit-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.07-7.07l1.72 1.71"></path>
                                 </svg>
                             </div>
                             <h3>User-Friendly Interface</h3>
@@ -194,14 +203,14 @@
                         <div class="article-text" w-tid="189">
                             <p w-tid="191">Ever wondered where that weird IP is coming from? Is it your friend from Paris... or a bot from who-knows-where?</p>
 
-                            <p>With our IP Address Lookup tool (aka your friendly IP tracker), you’ll finally get some answers. It’s the IP search tool you didn’t know you needed — but will definitely overuse. Paste an IP and trace it instantly.
+                            <p>With our IP Address Lookup tool (aka your friendly IP tracker), you'll finally get some answers. It's the IP search tool you didn't know you needed — but will definitely overuse. Paste an IP and trace it instantly.
 
 </p>
 
                             <p>It's fast. It's free. It works. Let's go.</p>
 
                             <h3>Wait, What's an IP Address Again?</h3>
-                            <p>Think of your IP like your home address… but for the internet. It tells websites where to send all that juicy stuff — cat videos, memes, emails from your boss, etc.</p>
+                            <p>Think of your IP like your home address... but for the internet. It tells websites where to send all that juicy stuff — cat videos, memes, emails from your boss, etc.</p>
 
                             <p>Two kinds exist:</p>
                             <ul>
@@ -211,7 +220,7 @@
                             <p>Every phone, laptop, or smart toaster has an IP. Even your grandma's tablet.</p>
 
                             <h3>What Does This Magical Lookup Tool Do?</h3>
-                            <p>You paste an IP. We serve up the IP geolocation info — the city, region, country, and more. It’s like a public IP lookup but fun. Think of it as a slightly nosy location finder.
+                            <p>You paste an IP. We serve up the IP geolocation info — the city, region, country, and more. It's like a public IP lookup but fun. Think of it as a slightly nosy location finder.
 
 :</p>
                             <ul>
@@ -226,7 +235,7 @@
                             <h3>Why Would You Use This?</h3>
                             <ol>
                                 <li><strong>You're stalking... your own IP</strong><br>
-                                You’re stalking... your own IP. Wondering what is my IP or want to find my IP address? Our tool shows it the moment the page loads. Creepy? Maybe. Useful? Always.
+                                You're stalking... your own IP. Wondering what is my IP or want to find my IP address? Our tool shows it the moment the page loads. Creepy? Maybe. Useful? Always.
 
 .</li>
                                 <li><strong>You caught a weird IP in your logs</strong><br>
@@ -234,7 +243,7 @@
                                 <li><strong>You received a fishy email</strong><br>
                                 Sometimes shady emails come with an IP trail. Use it to sniff out impostors. You don't need FBI clearance — just this tool.</li>
                                 <li><strong>Your Wi-Fi is acting sus</strong><br>
-                                See a mystery device on your network? Lookup the IP. Maybe it's your smart fridge… or your neighbor borrowing Wi-Fi again.</li>
+                                See a mystery device on your network? Lookup the IP. Maybe it's your smart fridge... or your neighbor borrowing Wi-Fi again.</li>
                             </ol>
 
                             <h3>Is the Info Always Accurate?</h3>
@@ -244,7 +253,7 @@
                                 <li>Some IPs change often (hi, mobile users).</li>
                                 <li>VPNs and proxies can mask real locations.</li>
                             </ul>
-                            <p>So… it's accurate-ish. Like when someone says, "I'm five minutes away."</p>
+                            <p>So... it's accurate-ish. Like when someone says, "I'm five minutes away."</p>
 
                             <h3>What Makes Our IP Lookup Better?</h3>
                             <ul>
@@ -255,7 +264,7 @@
                                 <li>✅ Works with IPv4 and IPv6</li>
                                 <li>✅ Completely free (because who wants to pay for basic info?)</li>
                             </ul>
-                            <p> It’s not just fast and free. It’s a smart IP locator for both IPv4 and IPv6 address lookup — no sign-up, no BS, no ads screaming in your face.</p>
+                            <p> It's not just fast and free. It's a smart IP locator for both IPv4 and IPv6 address lookup — no sign-up, no BS, no ads screaming in your face.</p>
 
                             <h3>Should You Worry About Your IP?</h3>
                             <p>Not unless you're doing shady stuff. But yes, your IP shows where you are roughly. Not your house, but your town or city. If you want more privacy, use a VPN. It hides your real IP and gives you a new one — like a fake mustache for the internet.</p>
@@ -389,6 +398,6 @@
         </footer>
     </div>
 
-    <script src="ipascript.js"></script>
+    <script src="ipscript.js"></script>
 </body>
 </html>
