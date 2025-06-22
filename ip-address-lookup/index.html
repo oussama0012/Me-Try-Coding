@@ -30,7 +30,7 @@
     <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
 
     <!-- Styles and Fonts -->
-    <link rel="stylesheet" href="tool1style.css">
+    <link rel="stylesheet" href="T1style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -71,7 +71,7 @@
             <button class="dark-mode-toggle" id="darkModeToggle">
                 <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="7" r="4"></circle>
-                    <path d="m12 2 1.09 3.26L16 4 13.74 6.26 17 12l-3.26-1.09L16 14 12 11.74 8 14l1.09-1.26L6 12l3.26-1.09L8 4l3.26 1.09L12 2Z"></path>
+                    <path d="m12 21 1.09-3.26L16 17l-1.06-1.06a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                 </svg>
                 <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
@@ -105,21 +105,78 @@
             <div id="resultSection" class="result-section">
                 <div class="result-grid">
                     <div class="result-card">
-                        <h3>Location</h3>
+                        <div class="card-header">
+                            <h3>Location</h3>
+                            <button class="copy-btn" data-target="locationInfo" title="Copy location info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
                         <p id="locationInfo">-</p>
                     </div>
                     <div class="result-card">
-                        <h3>Network</h3>
+                        <div class="card-header">
+                            <h3>Network</h3>
+                            <button class="copy-btn" data-target="networkInfo" title="Copy network info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
                         <p id="networkInfo">-</p>
                     </div>
                     <div class="result-card">
-                        <h3>ISP</h3>
+                        <div class="card-header">
+                            <h3>ISP</h3>
+                            <button class="copy-btn" data-target="ispInfo" title="Copy ISP info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
                         <p id="ispInfo">-</p>
                     </div>
                     <div class="result-card">
-                        <h3>IP Type</h3>
+                        <div class="card-header">
+                            <h3>IP Type</h3>
+                            <button class="copy-btn" data-target="typeInfo" title="Copy type info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
                         <p id="typeInfo">-</p>
                     </div>
+                </div>
+                <div class="export-section">
+                    <button id="exportJsonBtn" class="export-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export as JSON
+                    </button>
+                    <button id="exportTxtBtn" class="export-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export as Text
+                    </button>
+                    <button id="copyAllBtn" class="export-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy All Results
+                    </button>
                 </div>
                 <div id="mapContainer" class="map-container"></div>
             </div>
@@ -186,7 +243,7 @@
                         <div class="benefit-card">
                             <div class="benefit-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.07-7.07l1.72 1.71"></path>
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.72 1.71"></path>
                                 </svg>
                             </div>
                             <h3>User-Friendly Interface</h3>
@@ -313,7 +370,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+           </section>
 
             <div class="similar-tools-section">
                 <h3>Similar Tools You Might Like</h3>
@@ -381,7 +438,7 @@
             </div>
         </main>
         
-        <footer class="footer">
+       <footer class="footer">
             
             <div class="footer-container">
                 <div class="footer-logo"><a href="https://me-coding.com/ip-address-lookup">IP Address Lookup</a>
@@ -398,6 +455,6 @@
         </footer>
     </div>
 
-    <script src="tool1script.js"></script>
+    <script src="T1script.js"></script>
 </body>
 </html>
