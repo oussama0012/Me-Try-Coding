@@ -5,32 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Basic Meta Tags -->
-    <meta name="description" content="Instant DNS lookup – check any domain for A, AAAA, MX, CNAME, NS, TXT records and more. Fast, free, and accurate DNS resolver.">
-    <meta name="keywords" content="DNS lookup, DNS resolver, find DNS records, DNS information, A record, MX record, CNAME lookup, free DNS tool">
+    <meta name="description" content="Free DNS lookup tool – check DNS records for any domain including A, AAAA, MX, CNAME, TXT, and NS records. Fast, accurate DNS query results with no signup required.">
+    <meta name="keywords" content="DNS lookup, DNS records, domain DNS, DNS query tool, A record, MX record, CNAME lookup, DNS checker">
     <meta name="author" content="Oussama Achouri">
     <meta name="robots" content="index, follow">
 
-    <title>DNS Lookup Tool - Check DNS Records</title>
+    <title>DNS Lookup Tool</title>
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="DNS Lookup Tool – Find DNS Records Instantly">
-    <meta property="og:description" content="Discover DNS records (A, AAAA, MX, CNAME, NS, TXT) for any domain with our free and fast DNS Lookup tool. No sign-up required.">
+    <meta property="og:title" content="DNS Lookup Tool – Check DNS Records for Any Domain Instantly">
+    <meta property="og:description" content="Free DNS lookup tool to check A, AAAA, MX, CNAME, TXT, and NS records for any domain. Fast, accurate DNS query results with detailed information.">
     <meta property="og:image" content="https://me-coding.com/Me%20Coding.png">
-    <meta property="og:url" content="https://me-coding.com/Dns-lookup/"> 
+    <meta property="og:url" content="https://me-coding.com/Dns-lookup/">
     <meta property="og:type" content="website">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="DNS Lookup Tool – Find DNS Records Instantly">
-    <meta name="twitter:description" content="Use our DNS lookup tool to get details like A, AAAA, MX, CNAME, NS, TXT records for any domain in seconds. 100% free.">
+    <meta name="twitter:title" content="DNS Lookup Tool – Check DNS Records for Any Domain Instantly">
+    <meta name="twitter:description" content="Use our DNS lookup tool to check all DNS records for any domain including A, AAAA, MX, CNAME, TXT, and NS records. 100% free.">
     <meta name="twitter:image" content="https://me-coding.com/Me%20Coding.png">
 
     <!-- Canonical & Favicon -->
-    <link rel="canonical" href="https://me-coding.com/Dns-lookup/"> 
+    <link rel="canonical" href="https://me-coding.com/Dns-lookup/">
     <link rel="icon" type="image/png" href="https://me-coding.com/favicon-16x16.png">
 
     <!-- Styles and Fonts -->
-    <link rel="stylesheet" href="dns2style.css">
+    <link rel="stylesheet" href="T3style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -46,7 +46,7 @@
         "name": "DNS Lookup Tool",
         "url": "https://me-coding.com/Dns-lookup/",
         "image": "https://me-coding.com/Me%20Coding.png",
-        "description": "A fast and free DNS Lookup tool that displays various DNS records like A, AAAA, MX, CNAME, NS, TXT for any domain instantly.",
+        "description": "A fast and free DNS lookup tool that displays DNS records including A, AAAA, MX, CNAME, TXT, and NS records for any domain instantly.",
         "applicationCategory": "Utility",
         "operatingSystem": "All",
         "browserRequirements": "Requires JavaScript",
@@ -68,111 +68,136 @@
                 </svg>
                 View All Tools
             </a>
+            <button class="dark-mode-toggle" id="darkModeToggle">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="m12 21 1.09-3.26L16 17l-1.06-1.06a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                </svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </svg>
+            </button>
         </div>
         <header>
-            <h1 class="main-section-title">DNS Lookup – Check Records Instantly</h1>
-            <p>Quickly look up DNS records for any domain. Get A, AAAA, MX, CNAME, NS, TXT records and more with our free DNS lookup tool. No signup needed.</p>
+            <h1 class="main-section-title">DNS Lookup Tool – Check DNS Records for Any Domain</h1>
+            <p>Quickly check DNS records for any domain. Get A, AAAA, MX, CNAME, TXT, and NS records with our free DNS lookup tool. No signup needed – fast and accurate DNS query results.</p>
         </header>
         
         <main>
             <div class="lookup-section">
                 <input type="text" id="domainInput" placeholder="Enter Domain Name (e.g. google.com)">
+                <select id="recordTypeSelect">
+                    <option value="ALL">All Records</option>
+                    <option value="A">A Record</option>
+                    <option value="AAAA">AAAA Record</option>
+                    <option value="MX">MX Record</option>
+                    <option value="CNAME">CNAME Record</option>
+                    <option value="TXT">TXT Record</option>
+                    <option value="NS">NS Record</option>
+                </select>
                 <button id="lookupBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    Lookup
+                    DNS Lookup
                 </button>
             </div>
-            <p class="input-hint">For best results, please enter the domain name only (e.g., google.com) without "http://", "www.", or paths.</p>
 
             <div id="resultSection" class="result-section">
-                <div class="result-grid">
-                    <div class="result-card">
-                        <h3 id="card1Title">A Records & GeoIP</h3>
-                        <p id="card1Info">-</p>
-                    </div>
-                    <div class="result-card">
-                        <h3 id="card2Title">AAAA Records</h3>
-                        <p id="card2Info">-</p>
-                    </div>
-                    <div class="result-card">
-                        <h3 id="card3Title">MX Records</h3>
-                        <p id="card3Info">-</p>
-                    </div>
-                    <div class="result-card">
-                        <h3 id="card4Title">Other Records</h3>
-                        <p id="card4Info">-</p>
-                    </div>
+                <div class="export-section">
+                    <button id="exportJsonBtn" class="export-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export as JSON
+                    </button>
+                    <button id="exportTxtBtn" class="export-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export as Text
+                    </button>
+                    <button id="copyAllBtn" class="export-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy All Results
+                    </button>
                 </div>
-                <div id="mapContainer" class="map-container">
-                    <p style="text-align: center; padding-top: 20px;">Enter a domain to see map data for A records.</p>
-                </div>
+                <div id="mapContainer" class="map-container"></div>
             </div>
 
             <section class="benefits-section">
                 <div class="container">
                     <h2 class="main-section-title">DNS Lookup Tool – Fast, Free, No Signup</h2>
-                    <p>Instant DNS record lookup – check any domain for A, AAAA, MX, CNAME, NS, TXT records, and more. Fast, free, and accurate results with no signup required.</p>
+                    <p>Check DNS records for any domain instantly. Get A, AAAA, MX, CNAME, TXT, and NS records with detailed information. Fast, free, and accurate DNS lookup results.</p>
                     <div class="benefits-grid">
                         <div class="benefit-card">
                             <div class="benefit-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
-                                    <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                                    <path d="M3 3l18 18"></path>
+                                    <path d="M21 8.5c0-.6-.2-1.2-.5-1.7l-1.4 1.4c.1.1.1.2.1.3v6.2c0 .8-.7 1.5-1.5 1.5h-6.2c-.1 0-.2 0-.3-.1L9.8 17H19c1.1 0 2-.9 2-2V8.5z"></path>
+                                    <path d="M5 5c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h14"></path>
                                 </svg>
                             </div>
-                            <h3>Troubleshoot Issues</h3>
-                            <p>Diagnose website access problems and verify DNS propagation.</p>
+                            <h3>Complete DNS Records</h3>
+                            <p>Check all DNS record types including A, AAAA, MX, CNAME, TXT, and NS records for any domain.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"></path>
+                                </svg>
+                            </div>
+                            <h3>Real-Time Results</h3>
+                            <p>Get instant DNS lookup results with current DNS record information and propagation status.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>DNS Troubleshooting</h3>
+                            <p>Diagnose DNS issues, verify DNS propagation, and troubleshoot domain configuration problems.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M21 8a2 2 0 0 0-2-2h-2v4h2a2 2 0 0 0 2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3>Domain Analysis</h3>
+                            <p>Analyze domain DNS configuration and verify mail server, web server, and subdomain settings.</p>
                         </div>
                         <div class="benefit-card">
                             <div class="benefit-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    <path d="M12 12l3 3"></path>
+                                    <circle cx="12" cy="8" r="3"></circle>
                                 </svg>
                             </div>
-                            <h3>Comprehensive Details</h3>
-                            <p>Access various DNS records like A, AAAA, MX, CNAME, NS, and TXT instantly.</p>
+                            <h3>DNS Validation</h3>
+                            <p>Validate DNS records, check DNS propagation status, and verify domain configuration changes.</p>
                         </div>
                         <div class="benefit-card">
                             <div class="benefit-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.72 1.71"></path>
                                 </svg>
                             </div>
-                            <h3>Verify DNS Changes</h3>
-                            <p>Confirm if your recent DNS record updates are live and configured correctly.</p>
-                        </div>
-                        <div class="benefit-card">
-                            <div class="benefit-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                     <path d="M16 18L22 12 16 6"></path><path d="M8 6L2 12 8 18"></path>
-                                </svg>
-                            </div>
-                            <h3>Developer & Admin Tool</h3>
-                            <p>Essential for web developers and network administrators for quick DNS checks.</p>
-                        </div>
-                        <div class="benefit-card">
-                            <div class="benefit-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                                </svg>
-                            </div>
-                            <h3>Global Resolver View</h3>
-                            <p>See how your domain's DNS records are seen by Google's public DNS resolvers.</p>
-                        </div>
-                        <div class="benefit-card">
-                            <div class="benefit-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                </svg>
-                            </div>
-                            <h3>User-Friendly Interface</h3>
-                            <p>Simple, intuitive design for effortless DNS record exploration.</p>
+                            <h3>Easy to Use</h3>
+                            <p>Simple, intuitive interface for quick DNS lookups with detailed record information and explanations.</p>
                         </div>
                     </div>
                 </div>
@@ -181,79 +206,115 @@
             <section class="article-section">
                 <div class="container">
                     <div class="article-content">
-                        <h2 class="article-title">DNS Lookup: Your Guide to Navigating the Web's Address Book</h2>
+                        <h2 class="article-title">DNS Lookup: Your Essential Domain Investigation Tool</h2>
                         <div class="article-text" w-tid="189">
-                            <p w-tid="191">Ever wondered how typing "google.com" magically takes you to Google? That's DNS, the Domain Name System, at work! It's like the internet's giant, super-fast phone book.</p>
+                            <p w-tid="191">Need to check what's behind a domain? Want to see if DNS changes have propagated?</p>
 
-                            <p>Our DNS Lookup tool lets you peek into this phone book. Enter a domain name, and we'll fetch its DNS records for you. It's quick, easy, and reveals the technical backbone of any website.</p>
+                            <p>With our DNS Lookup tool, you'll get instant access to all DNS records for any domain. It's the DNS checker you didn't know you needed — but will definitely bookmark. Enter a domain and get detailed DNS record information instantly.</p>
 
-                            <h3>So, What's DNS Anyway?</h3>
-                            <p>DNS translates human-friendly domain names (like <code>example.com</code>) into computer-friendly IP addresses (like <code>93.184.216.34</code>). Without DNS, you'd have to remember strings of numbers for every website you visit. Imagine that!</p>
-                            <p>When you type a domain name into your browser, your computer asks a series of DNS servers, "Hey, what's the IP address for this domain?" This tool does a similar query, showing you the results directly.</p>
+                            <p>It's fast. It's free. It works. Let's dig into DNS.</p>
 
-                            <h3>Common DNS Record Types Explained:</h3>
-                            <p>Our tool can fetch various types of DNS records. Here are some of the most common ones:</p>
+                            <h3>What's DNS Again?</h3>
+                            <p>DNS (Domain Name System) is like the phone book of the internet. It translates human-readable domain names into IP addresses that computers can understand.</p>
+
+                            <p>DNS records include:</p>
                             <ul>
-                                <li><strong>A Record (Address Record):</strong> Points a domain or subdomain to an IPv4 address (e.g., <code>192.0.2.1</code>). This is the most basic type of record.</li>
-                                <li><strong>AAAA Record (IPv6 Address Record):</strong> Similar to an A record, but points to an IPv6 address (e.g., <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>). This is for the newer internet protocol.</li>
-                                <li><strong>CNAME Record (Canonical Name Record):</strong> Forwards one domain or subdomain to another domain name (an alias). It doesn't point directly to an IP address.</li>
-                                <li><strong>MX Record (Mail Exchange Record):</strong> Specifies the mail servers responsible for receiving email messages on behalf of a domain name.</li>
-                                <li><strong>NS Record (Name Server Record):</strong> Delegates a DNS zone to use the given authoritative name servers. These are the servers that know all the DNS details for a domain.</li>
-                                <li><strong>TXT Record (Text Record):</strong> Allows administrators to insert arbitrary text into DNS records. Often used for email security (SPF, DKIM, DMARC), domain ownership verification, and other purposes.</li>
+                                <li>A records - Point domains to IPv4 addresses</li>
+                                <li>AAAA records - Point domains to IPv6 addresses</li>
+                                <li>MX records - Define mail servers for the domain</li>
+                                <li>CNAME records - Create domain aliases</li>
+                                <li>TXT records - Store text information and verification data</li>
+                                <li>NS records - Define authoritative name servers</li>
                             </ul>
-                            <p>There are other record types too (like SOA, SRV, PTR), but these are the ones you'll most commonly encounter and that our tool focuses on.</p>
+                            <p>Every domain has DNS records. Even your favorite meme site.</p>
 
-                            <h3>Why Use This DNS Lookup Tool?</h3>
+                            <h3>What Does This DNS Lookup Tool Do?</h3>
+                            <p>You enter a domain. We serve up the DNS records — all the technical details that make the domain work. It's like a comprehensive DNS checker:</p>
+                            <ul>
+                                <li>🌐 A and AAAA records (IPv4 and IPv6 addresses)</li>
+                                <li>📧 MX records (mail server configuration)</li>
+                                <li>🔗 CNAME records (domain aliases)</li>
+                                <li>📝 TXT records (verification and configuration data)</li>
+                                <li>🏷️ NS records (name server information)</li>
+                                <li>⚡ Real-time DNS propagation status</li>
+                            </ul>
+                            <p>Sorry — we only show publicly available DNS records. Private configurations stay private.</p>
+
+                            <h3>Why Would You Use This DNS Lookup Tool?</h3>
                             <ol>
-                                <li><strong>Troubleshooting Connectivity:</strong> If a website isn't loading, a DNS lookup can tell you if the issue is with its DNS configuration.</li>
-                                <li><strong>Verifying DNS Changes:</strong> After updating your domain's DNS records (e.g., changing web hosts or mail providers), use this tool to see if the changes have propagated.</li>
-                                <li><strong>Security Research:</strong> Examine TXT records for SPF/DKIM configurations, or check NS records for authoritative servers.</li>
-                                <li><strong>Learning & Curiosity:</strong> Understand how popular websites are structured behind the scenes. See which IP addresses they use, or where their mail is handled.</li>
-                                <li><strong>Checking for Specific Records:</strong> Quickly find A, AAAA, MX, CNAME, NS, or TXT records for any domain.</li>
+                                <li><strong>You're troubleshooting DNS issues</strong><br>
+                                Website not loading? Check the DNS records to see if they're configured correctly.</li>
+                                <li><strong>You want to verify DNS changes</strong><br>
+                                Changed your DNS settings? Use our tool to check if the changes have propagated globally.</li>
+                                <li><strong>You're investigating a domain</strong><br>
+                                Research domain configuration, mail servers, and hosting details for any website.</li>
+                                <li><strong>You're setting up email or subdomains</strong><br>
+                                Verify MX records for email configuration or check subdomain DNS settings.</li>
                             </ol>
 
-                            <h3>Is the Information Always 100% Up-to-Date?</h3>
-                            <p>DNS information is cached at various levels across the internet to speed things up. When DNS records are changed, it can take some time (from minutes to 48 hours, or even more in rare cases) for these changes to "propagate" worldwide. Our tool queries Google's Public DNS resolvers, which are generally quick to update, but there might still be slight discrepancies compared to what your local ISP's resolver sees, especially during propagation periods.</p>
-                            
-                            <h3>What Makes Our DNS Lookup Tool Stand Out?</h3>
+                            <h3>Are the DNS Results Always Accurate?</h3>
+                            <p>Our tool shows real-time DNS data, but:</p>
                             <ul>
-                                <li> Simple, clean interface with no clutter.</li>
-                                <li> Fast results from reliable Google DNS servers.</li>
-                                <li> Displays multiple common record types in an easy-to-read format.</li>
-                                <li> Includes a map to geolocate A record IP addresses.</li>
-                                <li> No login, no usage limits, and completely free.</li>
-                                <li> Works on desktop, tablet, and mobile devices.</li>
+                                <li>DNS propagation can take time (up to 48 hours).</li>
+                                <li>Different DNS servers might show different results temporarily.</li>
+                                <li>Some records might be cached by your local DNS resolver.</li>
                             </ul>
-                            <p>It’s designed to be a straightforward and helpful utility for anyone needing to look up DNS records quickly.</p>
+                            <p>So... it's as accurate as the current DNS state. Like when someone says their code "works on my machine."</p>
+
+                            <h3>What Makes Our DNS Lookup Tool Better?</h3>
+                            <ul>
+                                <li>✅ Complete DNS record types in one lookup</li>
+                                <li>✅ Works on desktop, tablet, phone, maybe even smart toaster</li>
+                                <li>✅ Loads faster than DNS propagation</li>
+                                <li>✅ No login, no limits, no drama</li>
+                                <li>✅ Real-time DNS query results</li>
+                                <li>✅ Completely free (because DNS should be accessible)</li>
+                            </ul>
+                            <p>It's not just fast and free. It's a comprehensive DNS checker for all record types — no sign-up, no BS, no ads screaming about DNS solutions.</p>
+
+                            <h3>Should You Monitor Your DNS Records?</h3>
+                            <p>If you own domains, absolutely! DNS misconfigurations can break your website, email, or subdomains. Regular DNS checks help ensure everything's working correctly.</p>
+                            
+                            <h3>About Our DNS Lookup Tool</h3>
+                            <p>Our DNS Lookup tool works as a comprehensive domain investigation system, DNS record checker, and propagation monitor. Whether you want to check A records, verify MX configuration, or simply monitor DNS changes — this tool gets the job done.</p>
+                            
+                            <h3>Bonus: DNS Best Practices</h3>
+                            <ul>
+                                <li>Use reliable DNS providers for better uptime</li>
+                                <li>Set appropriate TTL values for your records</li>
+                                <li>Monitor DNS changes with our lookup tool</li>
+                                <li>Keep backup DNS records documented</li>
+                                <li>Test DNS changes before going live</li>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="faq-section">
-                        <h3>FAQ – DNS Lookup (The Quick Answers)</h3>
+                        <h3>FAQ – DNS Lookup Tool (The Essential Questions)</h3>
                         <div class="faq-grid">
                             <div class="faq-item">
-                                <h4>Q: Is this DNS lookup tool really free?</h4>
-                                <p>Absolutely! Use it as much as you like, no charge, no catch.</p>
+                                <h4>Q: Is this DNS lookup really free?</h4>
+                                <p>Yep. No strings. No trials. Just comprehensive DNS record data.</p>
                             </div>
                             <div class="faq-item">
-                                <h4>Q: Can I see the physical location of a server?</h4>
-                                <p>For A records (IPv4 addresses), we attempt to show an estimated geolocation on a map. It's based on IP databases and indicates the general area, not a precise address.</p>
+                                <h4>Q: Can I check all DNS record types?</h4>
+                                <p>Yes! A, AAAA, MX, CNAME, TXT, and NS records all in one lookup.</p>
                             </div>
                             <div class="faq-item">
-                                <h4>Q: What if a record type I'm looking for isn't shown?</h4>
-                                <p>It could mean that specific record type isn't configured for the domain, or our tool focuses on the most common types. We currently show A, AAAA, MX, CNAME, NS, and TXT.</p>
+                                <h4>Q: Will it work on my phone?</h4>
+                                <p>Of course. We're not stuck in the dial-up era.</p>
                             </div>
                             <div class="faq-item">
-                                <h4>Q: How accurate is the displayed DNS information?</h4>
-                                <p>We query Google's Public DNS, which is generally very up-to-date. However, DNS propagation can take time, so very recent changes might not be visible immediately everywhere.</p>
+                                <h4>Q: Do you track my DNS lookups?</h4>
+                                <p>Nope. We don't care what domains you're investigating.</p>
                             </div>
                             <div class="faq-item">
-                                <h4>Q: Do you store or log the domains I look up?</h4>
-                                <p>No, your lookups are your business. We don't store or track the domains you query.</p>
+                                <h4>Q: Can I use it unlimited times?</h4>
+                                <p>Go wild. We don't limit DNS lookups.</p>
                             </div>
                             <div class="faq-item" w-tid="395">
-                                <h4>Q: Why are some records (like TXT) long or complex?</h4>
-                                <p>TXT records especially can contain various kinds of data, like security policies (SPF, DKIM) or site verification codes, which can look complex.</p>
+                                <h4>Q: What if the DNS data seems wrong?</h4>
+                                <p>DNS propagation takes time. Try again in a few minutes or check with your DNS provider.</p>
                             </div>
                         </div>
                     </div>
@@ -263,7 +324,7 @@
             <div class="similar-tools-section">
                 <h3>Similar Tools You Might Like</h3>
                 <div class="similar-tools-grid">
-                    <a href="#" class="similar-tool-card">
+ <a href="https://me-coding.com/Password-Generator" class="similar-tool-card">
                         <div class="tool-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -272,16 +333,25 @@
                         </div>
                         <span>Password Generator</span>
                     </a>
-                    <a href="#" class="similar-tool-card">
+                    <a href="https://me-coding.com/Internet-Speed-Test" class="similar-tool-card">
+                        <div class="tool-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <span>Internet Speed Test</span>
+                    </a>
+                    <a href="https://me-coding.com/Mac-Address-Lookup" class="similar-tool-card">
                         <div class="tool-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
                             </svg>
                         </div>
-                        <span>URL Shortener</span>
+                        <span>MAC Address Lookup</span>
                     </a>
-                    <a href="#" class="similar-tool-card">
+                    <a href="https://me-coding.com/Port-Checker-Tool" class="similar-tool-card">
                         <div class="tool-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="3" width="7" height="7"></rect>
@@ -290,59 +360,46 @@
                                 <rect x="3" y="14" width="7" height="7"></rect>
                             </svg>
                         </div>
-                        <span>QR Code Generator</span>
+                        <span>Port Checker</span>
                     </a>
-                    <a href="#" class="similar-tool-card">
+                    <a href="https://me-coding.com/IP-WHOIS-Lookup" class="similar-tool-card">
                         <div class="tool-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="16 18 22 12 16 6"></polyline>
                                 <polyline points="8 6 2 12 8 18"></polyline>
                             </svg>
                         </div>
-                        <span>JSON Formatter</span>
+                        <span>IP Whois Lookup</span>
                     </a>
-                    <a href="#" class="similar-tool-card">
+                    <a href="https://me-coding.com/ip-address-lookup" class="similar-tool-card">
                         <div class="tool-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
                             </svg>
                         </div>
-                        <span>HTML to Markdown</span>
-                    </a>
-                    <a href="#" class="similar-tool-card">
-                        <div class="tool-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                        </div>
-                        <span>Random Name Generator</span>
+                        <span>IP Address Lookup</span>
                     </a>
                 </div>
             </div>
         </main>
         
         <footer class="footer">
-            <a href="https://fazier.com" target="_blank"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light" width=120 alt="Fazier badge" /></a>
+            
             <div class="footer-container">
-                <div class="footer-logo"><a href="#">DNS Lookup Tool</a>
-                </div>
+                <div class="footer-logo"><a href="https://me-coding.com/Dns-lookup">DNS Lookup Tool</a></div>
                 <nav class="footer-nav">
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="https://me-coding.com/privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="https://me-coding.com/about-us.html">About</a></li>
+                        <li><a href="https://me-coding.com/contact-us.html">Contact Us</a></li>
                     </ul>
                 </nav>
-                <div class="footer-copyright"> All rights reserved to <a href="#">mecoding</a>.</div>
+                <div class="footer-copyright"> All rights reserved to <a href="https://me-coding.com">mecoding</a>.</div>
             </div>
         </footer>
     </div>
 
-    <script src="dns2script.js"></script>
+    <script src="T3script.js"></script>
 </body>
 </html>
